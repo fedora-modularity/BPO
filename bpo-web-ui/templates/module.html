@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+
+{% macro nav_element(tab_name, tab_title) %}
+<li class="{% if selected_tab == tab_name %}active{% endif %}" role="presentation">
+    <a href="{{ url_for(tab_name, name=name, version=version, release=release) }}">
+        {{ tab_title }}
+    </a>
+</li>
+{% endmacro %}
+
+
+{% block body %}
+<div class="container">
+  <h1> <a href="{{ url_for("modules") }}">modules</a> / <strong><a href="{{ url_for("module_versions", name=name) }}">{{ name }}</a> </strong>/<strong> {{ version }}-{{release}}</strong> </h1>
+
+  <ul class="nav nav-tabs">
+    {{ nav_element("module_overview", "Overview") }} 
+    {{ nav_element("module_packages", "Packages") }} 
+    {{ nav_element("module_dependencies", "Dependencies") }} 
+    {{ nav_element("module_required_by", "Required By") }} 
+    {{ nav_element("module_artifacts", "Artifacts") }} 
+  </ul>
+
+{% block module_body %}{% endblock %}
+
+{% endblock %}

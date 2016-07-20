@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% from "_modules_table.html" import modules_table %}
+
+{% block body %}
+<div class="container">
+  <h1> modules </h1>
+
+  {{ modules_table(res) }}
+
+{% endblock %}

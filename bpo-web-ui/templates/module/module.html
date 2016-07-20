@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+  <h1> <a href="">modules</a> / <strong><a href="">test-module-2.6-4</a></strong> </h1>
+
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#">Overview</a></li>
+    <li role="presentation"><a href="#">Packages</a></li>
+    <li role="presentation"><a href="#">Dependencies</a></li>
+    <li role="presentation"><a href="#">Required By</a></li>
+    <li role="presentation"><a href="#">Artifacts</a></li>
+  </ul>
+
+  <table class="datatable table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Module Name</th>
+        <th>Module Version</th>
+        <th>Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+</div>
+
+<script>
+  // Initialize Datatables
+  $(document).ready(function() {
+    $('.datatable').dataTable({
+      "order": [[ 0, "desc" ]]
+    });
+  });
+</script>
+{% endblock %}

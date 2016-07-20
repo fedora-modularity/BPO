@@ -1,0 +1,32 @@
+{% macro modules_table(res) %}
+  <table class="datatable table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Version-Release</th>
+        <th>Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for module in  res.hits.hits %}
+      <tr>
+        <td><a href="{{url_for("module_versions",name=module._source.name) }}">{{ module._source.name }}</a></td>
+        <td><a href="{{url_for("module_overview",name=module._source.name, version=module._source.version, release=module._source.release) }}">{{ module._source.version }}-{{ module._source.release }}</a></td>
+        <td>{{ module._source.summary }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+<script>
+  // Initialize Datatables
+  $(document).ready(function() {
+    $('.datatable').dataTable({
+      "order": [[ 0, "desc" ]]
+    });
+  });
+</script>
+
+{% endmacro %}
