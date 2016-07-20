@@ -4,7 +4,37 @@
 
 {% block body %}
 <div class="container">
-  <h1> <a href="{{ url_for("modules") }}">modules</a> / <strong>{{ name }}</strong> </h1>
+  <h1>
+    <a href="{{ url_for("modules") }}">modules</a>
+    / <strong>{{ name }}</strong>
+  </h1>
 
-  {{ modules_table(res) }}
+  <table class="datatable table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Version</th>
+        <th>Number of Releases</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for version in versions %}
+      <tr>
+        <td><strong><a href="{{ url_for("module_version_releases", name=name, version=version.key) }}">{{ version.key }}</a></strong></td>
+        <td>{{ version.doc_count }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+<script>
+  // Initialize Datatables
+  $(document).ready(function() {
+    $('.datatable').dataTable({
+      "order": [[ 0, "desc" ]]
+    });
+  });
+</script>
+
 {% endblock %}

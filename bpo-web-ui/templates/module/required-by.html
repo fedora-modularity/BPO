@@ -6,5 +6,39 @@
 
 <h2> Required By </h2>
 
+<table class="datatable table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Module</th>
+      <th>Build State</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for document in required_by %}
+    <tr>
+      <td>
+        <strong>
+          <a href="{{url_for("module_overview", name=document._source.name, version=document._source.version, release=document._source.release) }}">
+              {{ document._source.name }}-{{ document._source.version }}-{{ document._source.release }}
+          </a>
+        </strong>
+      </td>
+      <td>{{ document._source["build-state"] }}</td>
+      <td>{{ document._source.summary }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+<script>
+  // Initialize Datatables
+  $(document).ready(function() {
+    $('.datatable').dataTable({
+      "order": [[ 0, "desc" ]]
+    });
+  });
+</script>
 
 {% endblock %}

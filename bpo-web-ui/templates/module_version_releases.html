@@ -4,21 +4,25 @@
 
 {% block body %}
 <div class="container">
-  <h1><strong> modules </strong></h1>
-  
-  
+  <h1>
+    <a href="{{ url_for("modules") }}">modules</a>
+    / <strong>
+        <a href="{{ url_for("module_versions", name=name) }}">{{ name }}</a>
+        - {{ version }}
+      </strong> 
+  </h1>
+
+
   <table class="datatable table table-striped table-bordered">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Number of Version-Releases</th>
+        <th>Release</th>
       </tr>
     </thead>
     <tbody>
-    {% for module in  modules %}
+    {% for module in documents %}
       <tr>
-        <td><strong><a href="{{ url_for("module_versions", name=module.key) }}">{{ module.key }}</a></strong></td>
-        <td>{{ module.doc_count }}</td>
+        <td><strong><a href="{{ url_for("module_overview", name=name, version=version, release=module._source.release) }}">{{ module._source.release }}</a></strong></td>
       </tr>
     {% endfor %}
     </tbody>

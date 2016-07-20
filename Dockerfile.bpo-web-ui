@@ -2,8 +2,8 @@ FROM fedora:24
 MAINTAINER Adam Samalik <asamalik@redhat.com>
 ENV LANG=en_US.utf8
 
-RUN dnf install -y python3-flask python3-redis
+RUN dnf install -y python3-flask python3-elasticsearch
 
-ADD . /code
-WORKDIR /code
+ADD bpo-web-ui /code
+WORKDIR /code/bpo-web-ui
 CMD python3 app.py

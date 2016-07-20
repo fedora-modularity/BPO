@@ -1,12 +1,32 @@
 version: '2'
 services:
-  web:
-    build: .
+  bpo-web-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.bpo-web-ui
     ports:
       - "80:5000"
     volumes:
       - .:/code
     depends_on:
-      - redis
-  redis:
-    image: redis
+      - elasticsearch
+  bpo-updater-fake:
+    build:
+      context: .
+      dockerfile: Dockerfile.bpo-updater-fake
+    volumes:
+      - .:/code
+    depends_on:
+      - elasticsearch
+#  bpo-updater-fedmsg:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.bpo-updater-fedmsg
+#    volumes:
+#      - .:/code
+#    depends_on:
+#      - elasticsearch
+  elasticsearch:
+    image: elasticsearch
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml

@@ -12,7 +12,14 @@
 
 {% block body %}
 <div class="container">
-  <h1> <a href="{{ url_for("modules") }}">modules</a> / <strong><a href="{{ url_for("module_versions", name=name) }}">{{ name }}</a> </strong>/<strong> {{ version }}-{{release}}</strong> </h1>
+  <h1>
+    <a href="{{ url_for("modules") }}">modules</a>
+    / <strong>
+        <a href="{{ url_for("module_versions", name=name) }}">{{ name }}</a>
+        - <a href="{{ url_for("module_version_releases", name=name, version=version) }}">{{ version }}</a>
+        - {{ release }}
+      </strong>
+  </h1>
 
   <ul class="nav nav-tabs">
     {{ nav_element("module_overview", "Overview") }} 
