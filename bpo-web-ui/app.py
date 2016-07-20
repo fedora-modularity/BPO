@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, request
 from elasticsearch import Elasticsearch
 from datetime import datetime
 
@@ -180,6 +180,25 @@ def module_artifacts(name, version, release):
                             name=name,
                             version=version,
                             release=release)
+
+
+@app.route('/search-modules/')
+def search_modules():
+    search = request.args.get('search')
+    query = {
+        "query": {
+            "match": {
+                "_all": search
+            }
+        }
+    }
+
+    res = es.search(index="modularity", doc_type='module', body=query)
+    modules = res["hits"]["hits"]
+
+    return render_template("search-modules.html",
+                            search=search,
+                            modules=modules)
 
 
 if __name__ == "__main__":
