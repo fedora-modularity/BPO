@@ -8,4 +8,8 @@ This is a service providing a single UI for accessing information about build st
 $ docker-compose up
 ```
 
+You might need to wait 10 seconds for the bpo-updater-fake container to push some mock data into elasticsearch.
+
+The UI will be available on http://localhost
+
 Requires docker 1.10 and docker-compose 1.7
