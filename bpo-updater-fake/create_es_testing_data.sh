@@ -101,25 +101,25 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/salami-pizza-1.0-1' -d '
     "build-state": "wait"
 }
 '
-curl -XPUT 'http://elasticsearch:9200/modularity/module/salami-pizza-1.0-1' -d '
-{
-    "name": "salami-pizza",
-    "version": "1.0",
-    "release": "1",
-    "summary": "A salami pizza packaged as a module!",
-    "dependencies": [
-        "base-module-1.0-1",
-        "cheese-pizza-1.0-1"
-    ],
-    "build-state": "wait"
-}
-'
-
 curl -XPUT 'http://elasticsearch:9200/modularity/module/salami-pizza-2.0-1' -d '
 {
     "name": "salami-pizza",
     "version": "2.0",
     "release": "1",
+    "summary": "A salami pizza packaged as a module!",
+    "dependencies": [
+        "base-module-1.0-1",
+        "cheese-pizza-2.0-1"
+    ],
+    "build-state": "wait"
+}
+'
+
+curl -XPUT 'http://elasticsearch:9200/modularity/module/salami-pizza-2.0-2' -d '
+{
+    "name": "salami-pizza",
+    "version": "2.0",
+    "release": "2",
     "summary": "A salami pizza packaged as a module!",
     "dependencies": [
         "base-module-1.0-1",
