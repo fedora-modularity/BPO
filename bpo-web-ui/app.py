@@ -2,10 +2,15 @@ from flask import Flask
 from flask import render_template, request
 from elasticsearch import Elasticsearch
 from datetime import datetime
+import re
 
 app = Flask(__name__)
 es = Elasticsearch(hosts=[{'host': 'elasticsearch', 'port': 9200}])
 
+
+
+def safe_input(string):
+    return re.sub(r'[^a-zA-Z0-9\-_. ]', '', string)
 
 @app.route('/')
 def index():
@@ -37,7 +42,7 @@ def module_versions(name):
          "query": {
              "bool": {
                  "must": [
-                     { "match": { "name.raw": name }}
+                     { "match": { "name.raw": safe_input(name) }}
                  ]
              }
          },
@@ -72,8 +77,8 @@ def module_version_releases(name, version):
         "query": {
             "bool": {
                 "must": [
-                    { "match": { "name.raw": name }},
-                    { "match": { "version.raw": version }}
+                    { "match": { "name.raw": safe_input(name) }},
+                    { "match": { "version.raw": safe_input(version) }}
                 ]
             }
         }
@@ -95,9 +100,9 @@ def get_module(name, version, release):
         "query": {
             "bool": {
                 "must": [
-                    { "match": { "name.raw": name }},
-                    { "match": { "version.raw": version }},
-                    { "match": { "release.raw": release }}
+                    { "match": { "name.raw": safe_input(name) }},
+                    { "match": { "version.raw": safe_input(version) }},
+                    { "match": { "release.raw": safe_input(release) }}
                 ]
             }
         }
@@ -188,7 +193,7 @@ def search_modules():
     query = {
         "query": {
             "match": {
-                "_all": search
+                "_all": safe_input(search)
             }
         }
     }
