@@ -1,0 +1,15 @@
+<h3> Possible Build States </h3>
+<dl class="dl-horizontal">
+  <dt>init</dt>
+  <dd>When a user first submits a module build, it enters this state. We parse the modulemd file, learn the NVR, and create a record for the module build.</dd>
+  <dt>wait</dt>
+  <dd>Here, the scheduler picks up tasks in wait and switches to build immediately. Eventually, we'll add throttling logic here so we don't submit too many builds for the build system to handle.</dd>
+  <dt>build</dt>
+  <dd>The scheduler works on builds in this state. We prepare the buildroot, submit builds for all the components, and wait for the results to come back.</dd>
+  <dt>done</dt>
+  <dd>Once all components have succeeded, we set the top-level module build to 'done'.</dd>
+  <dt>ready</dt>
+  <dd>This is a state to be set when a module is ready to be part of a larger compose. perhaps it is set by an external service that knows about the Grand Plan.</dd>
+  <dt>failed</dt>
+  <dd>If any of the component builds fail, then we set the top-level module build to 'failed' also.</dd>
+</dl>
