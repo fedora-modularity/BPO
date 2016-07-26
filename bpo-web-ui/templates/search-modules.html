@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% from "_build_state.html" import build_state, build_state_simple %}
 
 {% from "_modules_table.html" import modules_table %}
 
@@ -25,7 +26,7 @@
             </a>
           </strong>
         </td>
-        <td>{{ document._source["build-state"] }}</td>
+        <td>{{ build_state_simple(document._source["build-state"]) }}</td>
         <td>{{ document._source.summary }}</td>
       </tr>
     {% endfor %}
@@ -34,7 +35,6 @@
 
 
 <hr>
-{% include "_build-states.html" %}
 
 </div>
 

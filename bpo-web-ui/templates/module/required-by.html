@@ -1,4 +1,6 @@
 {% extends "module.html" %}
+{% from "_build_state.html" import build_state, build_state_simple %}
+
 
 {% set selected_tab = "module_required_by" %}
 
@@ -24,7 +26,7 @@
           </a>
         </strong>
       </td>
-      <td>{{ document._source["build-state"] }}</td>
+      <td>{{ build_state_simple(document._source["build-state"]) }}</td>
       <td>{{ document._source.summary }}</td>
     </tr>
   {% endfor %}
@@ -32,7 +34,6 @@
 </table>
 
 <hr>
-{% include "_build-states.html" %}
 
 
 <script>

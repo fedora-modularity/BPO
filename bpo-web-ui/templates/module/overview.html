@@ -1,4 +1,5 @@
 {% extends "module.html" %}
+{% from "_build_state.html" import build_state, build_state_simple %}
 
 {% set selected_tab = "module_overview" %}
 
@@ -6,16 +7,7 @@
 
 <br>
 
-{% set state=module._source["build-state"] %}
-{% set prev_state=module._source["build-state"] %}
-
-<ul class="nav nav-pills nav-justified build-progress">
-  <li class="done"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
-  <li class="running"><a href="#"><strong>Building Components</strong><br> Running </a></li>
-  <li class="shadow"><a href="#"><strong>Rebuilding the World</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Composing Artifacts</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Copying to Mirrors </strong><br> </a></li>
-</ul>
+{{ build_state(module._source["build-state"]) }}
 
 <hr>
 
@@ -26,28 +18,5 @@
   <dd>{{ module._source["build-state"] }}</dd>
 </dl>
 
-<hr>
-
-<ul class="nav nav-pills nav-justified build-progress">
-  <li class="done"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
-  <li class="done"><a href="#"><strong>Building Components</strong><br> Succeeded </a></li>
-  <li class="failed"><a href="#"><strong>Rebuilding the World</strong><br> Failed </a></li>
-  <li class="shadow"><a href="#"><strong>Composing Artifacts</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Copying to Mirrors </strong><br> </a></li>
-</ul>
-
-<hr>
-
-<ul class="nav nav-pills nav-justified build-progress">
-  <li class="done"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
-  <li class="pending"><a href="#"><strong>Building Components</strong><br> Pending </a></li>
-  <li class="shadow"><a href="#"><strong>Rebuilding the World</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Composing Artifacts</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Copying to Mirrors </strong><br> </a></li>
-</ul>
-
-<hr>
-
-{% include "_build_states.html" %}
 
 {% endblock %}
