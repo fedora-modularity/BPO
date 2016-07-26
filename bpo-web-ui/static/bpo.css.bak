@@ -9,7 +9,6 @@ h1.section-heading {
 
 .build-progress li a {
   margin-right: 23px;
-  height: 70px;
 }
 .build-progress li:nth-child(even) a:before {
   border-left-color: transparent;
@@ -36,7 +35,7 @@ h1.section-heading {
   position: absolute;
   top: 0;
   border: 0 solid;
-  border-width: 35px 10px;
+  border-width: 20px 10px;
   width: 0;
   height: 0;
 }
@@ -77,7 +76,6 @@ h1.section-heading {
 
 .build-progress li.shadow a {
   background-color: #eee;
-  color: #555;
 }
 .build-progress li.shadow a:before {
   border-color: #eee;
@@ -120,53 +118,5 @@ h1.section-heading {
 }
 .build-progress li.running a:hover:after {
   border-left-color: #c96807;
-}
-
-
-.build-progress li.done a {
-  background-color: #3f9c35;
-  color: white;
-}
-.build-progress li.done a:before {
-  border-color: #3f9c35;
-  border-left-color: transparent;
-}
-.build-progress li.done a:after {
-  border-left-color: #3f9c35;
-}
-
-.build-progress li.done a:hover {
-  background-color: #ddd;
-}
-.build-progress li.done a:hover:before {
-  border-color: #ddd;
-  border-left-color: transparent;
-}
-.build-progress li.done a:hover:after {
-  border-left-color: #ddd;
-}
-
-
-.build-progress li.failed a {
-  background-color: #c00;
-  color: white;
-}
-.build-progress li.failed a:before {
-  border-color: #c00;
-  border-left-color: transparent;
-}
-.build-progress li.failed a:after {
-  border-left-color: #c00;
-}
-
-.build-progress li.failed a:hover {
-  background-color: #ddd;
-}
-.build-progress li.failed a:hover:before {
-  border-color: #ddd;
-  border-left-color: transparent;
-}
-.build-progress li.failed a:hover:after {
-  border-left-color: #ddd;
 }
 

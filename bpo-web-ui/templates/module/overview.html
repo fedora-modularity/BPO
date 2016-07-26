@@ -4,7 +4,20 @@
 
 {% block module_body %}
 
-<h2> Overview </h2>
+<br>
+
+{% set state=module._source["build-state"] %}
+{% set prev_state=module._source["build-state"] %}
+
+<ul class="nav nav-pills nav-justified build-progress">
+  <li class="done"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
+  <li class="running"><a href="#"><strong>Building Components</strong><br> Running </a></li>
+  <li class="shadow"><a href="#"><strong>Rebuilding the World</strong><br> - </a></li>
+  <li class="shadow"><a href="#"><strong>Composing Artifacts</strong><br> - </a></li>
+  <li class="shadow"><a href="#"><strong>Copying to Mirrors </strong><br> - </a></li>
+</ul>
+
+<hr>
 
 <dl class="dl-horizontal">
   <dt>Summary:</dt>
@@ -14,7 +27,6 @@
 </dl>
 
 <hr>
-{% include "_build-states.html" %}
 
 
 {% endblock %}
