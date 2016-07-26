@@ -52,26 +52,27 @@ h1.section-heading {
 }
 
 
-.build-progress li.active a {
-  background-color: #39a5dc;
+.build-progress li.pending a {
+  background-color: #302cd2;
+  color: white;
 }
-.build-progress li.active a:before {
-  border-color: #39a5dc;
+.build-progress li.pending a:before {
+  border-color: #302cd2;
   border-left-color: transparent;
 }
-.build-progress li.active a:after {
-  border-left-color: #39a5dc;
+.build-progress li.pending a:after {
+  border-left-color: #302cd2;
 }
 
-.build-progress li.active a:hover {
-  background-color: #0088ce;
+.build-progress li.pending a:hover {
+  background-color: #2623a5;
 }
-.build-progress li.active a:hover:before {
-  border-color: #0088ce;
+.build-progress li.pending a:hover:before {
+  border-color: #2623a5;
   border-left-color: transparent;
 }
-.build-progress li.active a:hover:after {
-  border-left-color: #0088ce;
+.build-progress li.pending a:hover:after {
+  border-left-color: #2623a5;
 }
 
 
@@ -136,14 +137,14 @@ h1.section-heading {
 }
 
 .build-progress li.done a:hover {
-  background-color: #ddd;
+  background-color: #327b2a;
 }
 .build-progress li.done a:hover:before {
-  border-color: #ddd;
+  border-color: #327b2a;
   border-left-color: transparent;
 }
 .build-progress li.done a:hover:after {
-  border-left-color: #ddd;
+  border-left-color: #327b2a;
 }
 
 
@@ -160,13 +161,13 @@ h1.section-heading {
 }
 
 .build-progress li.failed a:hover {
-  background-color: #ddd;
+  background-color: #a80000;
 }
 .build-progress li.failed a:hover:before {
-  border-color: #ddd;
+  border-color: #a80000;
   border-left-color: transparent;
 }
 .build-progress li.failed a:hover:after {
-  border-left-color: #ddd;
+  border-left-color: #a80000;
 }
 
