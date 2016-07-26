@@ -1,0 +1,13 @@
+{ 
+  "builds": [
+    12,
+    34,
+    56,
+    78
+  ],
+  "state": "wait",
+  "version": "1.23",
+  "release": "4",
+  "id": 18,
+  "name": "foo"
+}

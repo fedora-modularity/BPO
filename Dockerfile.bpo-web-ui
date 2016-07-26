@@ -6,4 +6,4 @@ RUN dnf install -y python3-flask python3-elasticsearch
 
 ADD bpo-web-ui /code
 WORKDIR /code/bpo-web-ui
-CMD python3 app.py
+CMD python3 -u app.py

@@ -1,0 +1,7 @@
+FROM fedora:24
+MAINTAINER Adam Samalik <asamalik@redhat.com>
+ENV LANG=en_US.utf8
+
+RUN dnf install -y fedmsg fedmsg-relay
+
+CMD fedmsg-relay

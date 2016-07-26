@@ -18,15 +18,34 @@ services:
       - .:/code
     depends_on:
       - elasticsearch
-#  bpo-updater-fedmsg:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile.bpo-updater-fedmsg
-#    volumes:
-#      - .:/code
-#    depends_on:
-#      - elasticsearch
+  bpo-updater-fedmsg:
+    build:
+      context: .
+      dockerfile: Dockerfile.bpo-updater-fedmsg
+    volumes:
+      - .:/code
+      - ./config/fedmsg.d:/etc/fedmsg.d
+    depends_on:
+      - elasticsearch
   elasticsearch:
     image: elasticsearch
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  fedmsg-relay:
+    build:
+      context: .
+      dockerfile: Dockerfile.fedmsg-relay
+    volumes:
+      - .:/code
+      - ./config/fedmsg.d:/etc/fedmsg.d
+  fedmsg-emitter:
+    build:
+      context: .
+      dockerfile: Dockerfile.fedmsg-emitter
+    depends_on:
+      - fedmsg-relay
+    volumes:
+      - .:/code
+      - ./config/fedmsg.d:/etc/fedmsg.d
+    
+    

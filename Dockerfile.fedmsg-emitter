@@ -1,0 +1,9 @@
+FROM fedora:24
+MAINTAINER Adam Samalik <asamalik@redhat.com>
+ENV LANG=en_US.utf8
+
+RUN dnf install -y python3-elasticsearch python3-fedmsg-core fedmsg*
+
+ADD fedmsg-emitter /code
+WORKDIR /code/fedmsg-emitter
+CMD /bin/sh fedmsg.sh
