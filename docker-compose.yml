@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile.bpo-web-ui
     ports:
-      - "80:5000"
+      - "8010:5000"
     volumes:
       - .:/code
     depends_on:
@@ -31,21 +31,21 @@ services:
     image: elasticsearch
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-  fedmsg-relay:
-    build:
-      context: .
-      dockerfile: Dockerfile.fedmsg-relay
-    volumes:
-      - .:/code
-      - ./config/fedmsg.d:/etc/fedmsg.d
-  fedmsg-emitter:
-    build:
-      context: .
-      dockerfile: Dockerfile.fedmsg-emitter
-    depends_on:
-      - fedmsg-relay
-    volumes:
-      - .:/code
-      - ./config/fedmsg.d:/etc/fedmsg.d
+#  fedmsg-relay:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.fedmsg-relay
+#    volumes:
+#      - .:/code
+#      - ./config/fedmsg.d:/etc/fedmsg.d
+#  fedmsg-emitter:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.fedmsg-emitter
+#    depends_on:
+#      - fedmsg-relay
+#    volumes:
+#      - .:/code
+#      - ./config/fedmsg.d:/etc/fedmsg.d
     
     
