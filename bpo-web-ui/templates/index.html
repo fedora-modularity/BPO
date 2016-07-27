@@ -1,15 +1,19 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="container">
-  <h1> Know how your modules do! </h1>
-  <p> Build Pipeline Overview (BPO) is a service that tracks build states of your modules and their relationships. </p>
-  <a href="/modules/" class="btn btn-primary">Browse modules</a>
+<div class="jumbotron">
+  <div class="container">
+    <h1> Know how your modules do! </h1>
+    <p> Build Pipeline Overview (BPO) is a service that tracks build states of your modules and their relationships. </p>
+    <a href="/modules/" class="btn btn-primary btn-lg">Browse modules</a>
+  </div>
+</div>
 
-  <hr>
+<div class="container">
 
   <h2> How does it work </h2>
   <p> BPO is a read only UI using Elasticsearch as a data store and search engine. It listens to fedmsg and queries other services for module data and presents them on a single place. </p>
+  <br>
   <img style="width:720px" src="/static/bpo_arch.png">
 </div>
 {% endblock %}
