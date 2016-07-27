@@ -41,6 +41,7 @@ def module_state_change(msg):
         "release": release,
         "build-state": state,
         "dependencies": [],
+        "dependencies-build": [],
         "summary": ""
     }
 
