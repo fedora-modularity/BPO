@@ -1,0 +1,10 @@
+{% extends "module/dependencies.html" %}
+{% from "_modules_table.html" import modules_table %}
+
+{% set selected_tab2 = "build" %}
+
+{% block module_dependencies_body %}
+
+{{ modules_table(dependencies) }}
+
+{% endblock %}

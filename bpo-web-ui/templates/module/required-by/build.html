@@ -1,0 +1,10 @@
+{% extends "module/required-by.html" %}
+{% from "_modules_table.html" import modules_table %}
+
+{% set selected_tab2 = "build" %}
+
+{% block module_required_by_body %}
+
+{{ modules_table(required_by) }}
+
+{% endblock %}

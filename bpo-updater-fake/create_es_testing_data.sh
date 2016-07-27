@@ -1,5 +1,17 @@
 #!/usr/bin/sh
 
+curl -XPUT 'http://elasticsearch:9200/modularity/module/build-stuff-4.2-1' -d '
+{
+    "name": "build-stuff",
+    "version": "4.2",
+    "release": "1",
+    "summary": "The base module",
+    "dependencies": [],
+    "dependencies-build": [],
+    "build-state": "wait"
+}
+'
+
 curl -XPUT 'http://elasticsearch:9200/modularity/module/base-module-1.0-1' -d '
 {
     "name": "base-module",
@@ -7,6 +19,9 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/base-module-1.0-1' -d '
     "release": "1",
     "summary": "The base module",
     "dependencies": [],
+    "dependencies-build": [
+        "build-stuff-4.2-1"
+    ],
     "build-state": "wait"
 }
 '
@@ -20,6 +35,10 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-1.0-1' -d '
     "dependencies": [
         "base-module-1.0-1"
     ],
+    "dependencies-build": [
+        "build-stuff-4.2-1",
+        "base-module-1.0-1"
+    ],
     "build-state": "wait"
 }
 '
@@ -30,6 +49,10 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-2.5-1' -d '
     "release": "1",
     "summary": "Some kind of random madness",
     "dependencies": [
+        "base-module-1.0-1"
+    ],
+    "dependencies-build": [
+        "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
     "build-state": "wait"
@@ -45,6 +68,10 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-2.4-1' -d '
     "dependencies": [
         "base-module-1.0-1"
     ],
+    "dependencies-build": [
+        "build-stuff-4.2-1",
+        "base-module-1.0-1"
+    ],
     "build-state": "wait"
 }
 '
@@ -56,6 +83,10 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/cheese-pizza-1.0-1' -d '
     "release": "1",
     "summary": "A cheese pizza packaged as a module!",
     "dependencies": [
+        "base-module-1.0-1"
+    ],
+    "dependencies-build": [
+        "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
     "build-state": "wait"
@@ -71,6 +102,10 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/cheese-pizza-2.0-1' -d '
     "dependencies": [
         "base-module-1.0-1"
     ],
+    "dependencies-build": [
+        "build-stuff-4.2-1",
+        "base-module-1.0-1"
+    ],
     "build-state": "wait"
 }
 '
@@ -82,6 +117,10 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/cheese-pizza-2.0-2' -d '
     "release": "2",
     "summary": "A cheese pizza packaged as a module!",
     "dependencies": [
+        "base-module-1.0-1"
+    ],
+    "dependencies-build": [
+        "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
     "build-state": "wait"
@@ -98,6 +137,11 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/salami-pizza-1.0-1' -d '
         "base-module-1.0-1",
         "cheese-pizza-1.0-1"
     ],
+    "dependencies-build": [
+        "build-stuff-4.2-1",
+        "base-module-1.0-1",
+        "cheese-pizza-1.0-1"
+    ],
     "build-state": "wait"
 }
 '
@@ -108,6 +152,11 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/salami-pizza-2.0-1' -d '
     "release": "1",
     "summary": "A salami pizza packaged as a module!",
     "dependencies": [
+        "base-module-1.0-1",
+        "cheese-pizza-2.0-1"
+    ],
+    "dependencies-build": [
+        "build-stuff-4.2-1",
         "base-module-1.0-1",
         "cheese-pizza-2.0-1"
     ],
@@ -122,6 +171,11 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/salami-pizza-2.0-2' -d '
     "release": "2",
     "summary": "A salami pizza packaged as a module!",
     "dependencies": [
+        "base-module-1.0-1",
+        "cheese-pizza-2.0-2"
+    ],
+    "dependencies-build": [
+        "build-stuff-4.2-1",
         "base-module-1.0-1",
         "cheese-pizza-2.0-2"
     ],

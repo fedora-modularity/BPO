@@ -5,43 +5,15 @@
 
 {% block module_body %}
 
-<h2> Dependencies </h2>
+<ul class="nav nav-tabs nav-tabs-pf">
+  <li class="{% if selected_tab2 == "runtime" %}active{% endif %}">
+    <a href="{{ url_for("module_dependencies", name=name, version=version, release=release) }}">Runtime</a>
+  </li>
+  <li class="{% if selected_tab2 == "build" %}active{% endif %}">
+    <a href="{{ url_for("module_dependencies_build", name=name, version=version, release=release) }}">Build</a>
+  </li>
+</ul>
 
-<table class="datatable table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th>Module</th>
-      <th>Build State</th>
-      <th>Summary</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for document in dependencies %}
-    <tr>
-      <td>
-        <strong>
-          <a href="{{url_for("module_overview", name=document._source.name, version=document._source.version, release=document._source.release) }}">
-              {{ document._source.name }}-{{ document._source.version }}-{{ document._source.release }}
-          </a>
-        </strong>
-      </td>
-      <td>{{ build_state_simple(document._source["build-state"]) }}</td>
-      <td>{{ document._source.summary }}</td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
+{% block module_dependencies_body %}{% endblock %}
 
-
-<hr>
-
-
-<script>
-  // Initialize Datatables
-  $(document).ready(function() {
-    $('.datatable').dataTable({
-      "order": [[ 0, "desc" ]]
-    });
-  });
-</script>
 {% endblock %}

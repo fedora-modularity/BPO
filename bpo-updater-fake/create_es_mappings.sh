@@ -43,6 +43,10 @@ curl -XPOST elasticsearch:9200/modularity -d '{
                 "dependencies": {
                     "type": "string",
                     "index": "not_analyzed"
+                },
+                "dependencies-build": {
+                    "type": "string",
+                    "index": "not_analyzed"
                 }
             }
         }

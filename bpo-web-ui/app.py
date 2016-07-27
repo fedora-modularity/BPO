@@ -144,11 +144,32 @@ def module_dependencies(name, version, release):
     else:
         dependencies = []
 
-    return render_template("module/dependencies.html",
+    return render_template("module/dependencies/runtime.html",
                             name=name,
                             version=version,
                             release=release,
                             dependencies=dependencies)
+
+@app.route('/modules/<name>/<version>/<release>/dependencies/build/')
+def module_dependencies_build(name, version, release):
+    module = get_module(name, version, release)
+
+    deps_ids = module["_source"]["dependencies-build"]
+    if deps_ids:
+        query = {
+            "ids": deps_ids
+        }
+        res = es.mget(index="modularity", doc_type='module', body=query)
+        dependencies = res["docs"]
+    else:
+        dependencies = []
+
+    return render_template("module/dependencies/build.html",
+                            name=name,
+                            version=version,
+                            release=release,
+                            dependencies=dependencies)
+
 
 @app.route('/modules/<name>/<version>/<release>/required_by/')
 def module_required_by(name, version, release):
@@ -172,7 +193,36 @@ def module_required_by(name, version, release):
     res = es.search(index="modularity", doc_type='module', body=query)
     required_by = res["hits"]["hits"]
 
-    return render_template("module/required-by.html",
+    return render_template("module/required-by/runtime.html",
+                            name=name,
+                            version=version,
+                            release=release,
+                            required_by=required_by)
+
+
+@app.route('/modules/<name>/<version>/<release>/required_by/build/')
+def module_required_by_build(name, version, release):
+    module = get_module(name, version, release)
+
+    query = {
+        "query": {
+            "filtered": {
+                "query": {
+                    "match_all": {}
+                },
+                "filter": {
+                    "terms": {
+                        "dependencies-build": [module["_id"]]
+                    }
+                }
+            }
+        }
+    }
+
+    res = es.search(index="modularity", doc_type='module', body=query)
+    required_by = res["hits"]["hits"]
+
+    return render_template("module/required-by/build.html",
                             name=name,
                             version=version,
                             release=release,

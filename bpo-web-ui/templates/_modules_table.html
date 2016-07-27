@@ -1,24 +1,31 @@
-{% macro modules_table(modules) %}
-  <table class="datatable table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Version-Release</th>
-        <th>Summary</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for module in modules %}
-      <tr>
-        <td><a href="{{url_for("module_versions",name=module._source.name) }}">{{ module._source.name }}</a></td>
-        <td><a href="{{url_for("module_overview",name=module._source.name, version=module._source.version, release=module._source.release) }}">{{ module._source.version }}-{{ module._source.release }}</a></td>
-        <td>{{ module._source.summary }}</td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+{% from "_build_state.html" import build_state, build_state_simple %}
 
-</div>
+{% macro modules_table(modules) %}
+
+<table class="datatable table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Module</th>
+      <th>Build State</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for document in modules %}
+    <tr>
+      <td>
+        <strong>
+          <a href="{{url_for("module_overview", name=document._source.name, version=document._source.version, release=document._source.release) }}">
+              {{ document._source.name }}-{{ document._source.version }}-{{ document._source.release }}
+          </a>
+        </strong>
+      </td>
+      <td>{{ build_state_simple(document._source["build-state"]) }}</td>
+      <td>{{ document._source.summary }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 
 <script>
   // Initialize Datatables
