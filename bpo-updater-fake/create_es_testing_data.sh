@@ -5,10 +5,10 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/build-stuff-4.2-1' -d '
     "name": "build-stuff",
     "version": "4.2",
     "release": "1",
-    "summary": "The base module",
+    "summary": "Basic build tools",
     "dependencies": [],
     "dependencies-build": [],
-    "build-state": "wait"
+    "build-state": "done"
 }
 '
 
@@ -22,7 +22,7 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/base-module-1.0-1' -d '
     "dependencies-build": [
         "build-stuff-4.2-1"
     ],
-    "build-state": "wait"
+    "build-state": "done"
 }
 '
 
@@ -31,7 +31,7 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-1.0-1' -d '
     "name": "hello-world",
     "version": "1.0",
     "release": "1",
-    "summary": "Some kind of random madness",
+    "summary": "Hello world examples in various languages",
     "dependencies": [
         "base-module-1.0-1"
     ],
@@ -47,7 +47,7 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-2.5-1' -d '
     "name": "hello-world",
     "version": "2.5",
     "release": "1",
-    "summary": "Some kind of random madness",
+    "summary": "Hello world examples in various languages",
     "dependencies": [
         "base-module-1.0-1"
     ],
@@ -55,7 +55,7 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-2.5-1' -d '
         "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
-    "build-state": "wait"
+    "build-state": "init"
 }
 '
 
@@ -64,7 +64,7 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-2.4-1' -d '
     "name": "hello-world",
     "version": "2.4",
     "release": "1",
-    "summary": "Some kind of random madness",
+    "summary": "Hello world examples in various languages",
     "dependencies": [
         "base-module-1.0-1"
     ],
@@ -76,12 +76,12 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-2.4-1' -d '
 }
 '
 
-curl -XPUT 'http://elasticsearch:9200/modularity/module/cheese-pizza-1.0-1' -d '
+curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-1.0-1' -d '
 {
-    "name": "cheese-pizza",
+    "name": "random-language-stack",
     "version": "1.0",
     "release": "1",
-    "summary": "A cheese pizza packaged as a module!",
+    "summary": "A module containing a full stack of a random language.",
     "dependencies": [
         "base-module-1.0-1"
     ],
@@ -89,16 +89,16 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/cheese-pizza-1.0-1' -d '
         "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
-    "build-state": "wait"
+    "build-state": "ready"
 }
 '
 
-curl -XPUT 'http://elasticsearch:9200/modularity/module/cheese-pizza-2.0-1' -d '
+curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.0-1' -d '
 {
-    "name": "cheese-pizza",
+    "name": "random-language-stack",
     "version": "2.0",
     "release": "1",
-    "summary": "A cheese pizza packaged as a module!",
+    "summary": "A module containing a full stack of a random language.",
     "dependencies": [
         "base-module-1.0-1"
     ],
@@ -106,16 +106,16 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/cheese-pizza-2.0-1' -d '
         "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
-    "build-state": "wait"
+    "build-state": "ready"
 }
 '
 
-curl -XPUT 'http://elasticsearch:9200/modularity/module/cheese-pizza-2.0-2' -d '
+curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.0-2' -d '
 {
-    "name": "cheese-pizza",
+    "name": "random-language-stack",
     "version": "2.0",
     "release": "2",
-    "summary": "A cheese pizza packaged as a module!",
+    "summary": "A module containing a full stack of a random language.",
     "dependencies": [
         "base-module-1.0-1"
     ],
@@ -123,62 +123,62 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/cheese-pizza-2.0-2' -d '
         "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
-    "build-state": "wait"
+    "build-state": "ready"
 }
 '
 
-curl -XPUT 'http://elasticsearch:9200/modularity/module/salami-pizza-1.0-1' -d '
+curl -XPUT 'http://elasticsearch:9200/modularity/module/random-app-1.0-1' -d '
 {
-    "name": "salami-pizza",
+    "name": "random-app",
     "version": "1.0",
     "release": "1",
-    "summary": "A salami pizza packaged as a module!",
+    "summary": "Random app written in a random language",
     "dependencies": [
         "base-module-1.0-1",
-        "cheese-pizza-1.0-1"
+        "random-language-stack-1.0-1"
     ],
     "dependencies-build": [
         "build-stuff-4.2-1",
         "base-module-1.0-1",
-        "cheese-pizza-1.0-1"
+        "random-language-stack-1.0-1"
     ],
-    "build-state": "wait"
+    "build-state": "build"
 }
 '
-curl -XPUT 'http://elasticsearch:9200/modularity/module/salami-pizza-2.0-1' -d '
+curl -XPUT 'http://elasticsearch:9200/modularity/module/random-app-2.0-1' -d '
 {
-    "name": "salami-pizza",
+    "name": "random-app",
     "version": "2.0",
     "release": "1",
-    "summary": "A salami pizza packaged as a module!",
+    "summary": "Random app written in a random language",
     "dependencies": [
         "base-module-1.0-1",
-        "cheese-pizza-2.0-1"
+        "random-language-stack-2.0-1"
     ],
     "dependencies-build": [
         "build-stuff-4.2-1",
         "base-module-1.0-1",
-        "cheese-pizza-2.0-1"
+        "random-language-stack-2.0-1"
     ],
-    "build-state": "wait"
+    "build-state": "build"
 }
 '
 
-curl -XPUT 'http://elasticsearch:9200/modularity/module/salami-pizza-2.0-2' -d '
+curl -XPUT 'http://elasticsearch:9200/modularity/module/random-app-2.0-2' -d '
 {
-    "name": "salami-pizza",
+    "name": "random-app",
     "version": "2.0",
     "release": "2",
-    "summary": "A salami pizza packaged as a module!",
+    "summary": "Random app written in a random language",
     "dependencies": [
         "base-module-1.0-1",
-        "cheese-pizza-2.0-2"
+        "random-language-stack-2.0-2"
     ],
     "dependencies-build": [
         "build-stuff-4.2-1",
         "base-module-1.0-1",
-        "cheese-pizza-2.0-2"
+        "random-language-stack-2.0-2"
     ],
-    "build-state": "wait"
+    "build-state": "failed"
 }
 '

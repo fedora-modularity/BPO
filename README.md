@@ -3,7 +3,7 @@ This is a service providing a single UI for accessing information about build st
 
 [Learn more about Modularity.](https://fedoraproject.org/wiki/Modularity)
 
-##How to run locally
+##Local Development
 ```
 $ docker-compose up
 ```
