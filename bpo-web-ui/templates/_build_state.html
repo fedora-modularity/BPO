@@ -12,7 +12,7 @@
 <span>Rebuilding the World: Pending</span>
 
 {% elif state == "ready" %}
-<span>Composing Artifacts: Pending</span>
+<span>Distributing: Pending</span>
 
 {% elif state == "failed" %}
 <span>Build Failed</span>
@@ -28,36 +28,31 @@
   <li class="running"><a href="#"><strong>Importing</strong><br> Running </a></li>
   <li class="shadow"><a href="#"><strong>Building Components</strong><br> </a></li>
   <li class="shadow"><a href="#"><strong>Rebuilding the World</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Composing Artifacts</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Copying to Mirrors </strong><br> </a></li>
+  <li class="shadow"><a href="#"><strong>Distributing</strong><br> </a></li>
 
 {% elif state == "wait" %}
   <li class="succeeded"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
   <li class="pending"><a href="#"><strong>Building Components</strong><br> Pending </a></li>
   <li class="shadow"><a href="#"><strong>Rebuilding the World</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Composing Artifacts</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Copying to Mirrors </strong><br> </a></li>
+  <li class="shadow"><a href="#"><strong>Distributing</strong><br> </a></li>
 
 {% elif state == "build" %}
   <li class="succeeded"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
   <li class="running"><a href="#"><strong>Building Components</strong><br> Running </a></li>
   <li class="shadow"><a href="#"><strong>Rebuilding the World</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Composing Artifacts</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Copying to Mirrors </strong><br> </a></li>
+  <li class="shadow"><a href="#"><strong>Distributing</strong><br> </a></li>
 
 {% elif state == "done" %}
   <li class="succeeded"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
   <li class="succeeded"><a href="#"><strong>Building Components</strong><br> Succeeded </a></li>
   <li class="pending"><a href="#"><strong>Rebuilding the World</strong><br> Pending </a></li>
-  <li class="shadow"><a href="#"><strong>Composing Artifacts</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Copying to Mirrors </strong><br> </a></li>
+  <li class="shadow"><a href="#"><strong>Distributing</strong><br> </a></li>
 
 {% elif state == "ready" %}
   <li class="succeeded"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
   <li class="succeeded"><a href="#"><strong>Building Components</strong><br> Succeeded </a></li>
   <li class="succeeded"><a href="#"><strong>Rebuilding the World</strong><br> Succeeded</a></li>
-  <li class="pending"><a href="#"><strong>Composing Artifacts</strong><br> Pending </a></li>
-  <li class="shadow"><a href="#"><strong>Copying to Mirrors </strong><br> </a></li>
+  <li class="pending"><a href="#"><strong>Distributing</strong><br> Pending </a></li>
 
 {% elif state == "failed" %}
   <li class="failed"><a href="#"><strong>Build Failed</strong><br> More details about build failures will be available in later versions. </a></li>
