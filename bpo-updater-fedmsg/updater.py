@@ -4,6 +4,7 @@ from elasticsearch import Elasticsearch
 import urllib.request
 import json
 
+
 fedmsg_config = fedmsg.config.load_config()
 es = Elasticsearch(hosts=[{'host': 'elasticsearch', 'port': 9200}])
 
@@ -57,8 +58,6 @@ def module_state_change(msg):
             }
         }
         es.update(index="modularity", doc_type="module", id=id, body=document)
-
-    
 
 for name, endpoint, topic, msg in fedmsg.tail_messages(**fedmsg_config):
     if config_topic == topic:
