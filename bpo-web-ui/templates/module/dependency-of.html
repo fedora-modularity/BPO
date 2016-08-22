@@ -1,19 +1,19 @@
 {% extends "module.html" %}
 {% from "_build_state.html" import build_state, build_state_simple %}
 
-{% set selected_tab = "module_required_by" %}
+{% set selected_tab = "module_dependency_of" %}
 
 {% block module_body %}
 
 <ul class="nav nav-tabs nav-tabs-pf">
   <li class="{% if selected_tab2 == "runtime" %}active{% endif %}">
-    <a href="{{ url_for("module_required_by", name=name, version=version, release=release) }}">Runtime</a>
+    <a href="{{ url_for("module_dependency_of", name=name, version=version, release=release) }}">Runtime</a>
   </li>
   <li class="{% if selected_tab2 == "build" %}active{% endif %}">
-    <a href="{{ url_for("module_required_by_build", name=name, version=version, release=release) }}">Build</a>
+    <a href="{{ url_for("module_dependency_of_build", name=name, version=version, release=release) }}">Build</a>
   </li>
 </ul>
 
-{% block module_required_by_body %}{% endblock %}
+{% block module_dependency_of_body %}{% endblock %}
 
 {% endblock %}

@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 
 
-{% macro nav_element(tab_name, tab_title) %}
-<li class="{% if selected_tab == tab_name %}active{% endif %}" role="presentation">
+{% macro nav_element(tab_name, tab_title, pull_right = False) %}
+<li class="{% if selected_tab == tab_name %}active{% endif %} {% if pull_right %}pull-right{% endif %}" role="presentation">
     <a href="{{ url_for(tab_name, name=name, version=version, release=release) }}">
         {{ tab_title }}
     </a>
@@ -23,10 +23,14 @@
 
   <ul class="nav nav-tabs">
     {{ nav_element("module_overview", "Overview") }} 
-    {{ nav_element("module_packages", "Packages") }} 
+    {{ nav_element("module_components", "Components") }} 
     {{ nav_element("module_dependencies", "Dependencies") }} 
-    {{ nav_element("module_required_by", "Required By") }} 
-    {{ nav_element("module_artifacts", "Artifacts") }} 
+    {{ nav_element("module_install_profiles", "Install Profiles") }} 
+    {{ nav_element("module_api", "API") }} 
+
+    {{ nav_element("module_artifacts", "Artifacts", pull_right = True) }} 
+    {{ nav_element("module_dependency_of", "Dependency Of", pull_right = True) }} 
+    {{ nav_element("module_component_of", "Component Of", pull_right = True) }} 
   </ul>
 
 {% block module_body %}{% endblock %}
