@@ -6,9 +6,18 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/build-stuff-4.2-1' -d '
     "version": "4.2",
     "release": "1",
     "summary": "Basic build tools",
+    "build-state": "done",
     "dependencies": [],
     "dependencies-build": [],
-    "build-state": "done"
+    "components": {
+        "rpms": []
+    },
+    "api": {
+        "rpms": []
+    },
+    "install_profiles": {
+        "rpms": []
+    }
 }
 '
 
@@ -18,11 +27,18 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/base-module-1.0-1' -d '
     "version": "1.0",
     "release": "1",
     "summary": "The base module",
+    "build-state": "done",
     "dependencies": [],
-    "dependencies-build": [
-        "build-stuff-4.2-1"
-    ],
-    "build-state": "done"
+    "dependencies-build": [],
+    "components": {
+        "rpms": []
+    },
+    "api": {
+        "rpms": []
+    },
+    "install_profiles": {
+        "rpms": []
+    }
 }
 '
 
@@ -32,6 +48,7 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-1.0-1' -d '
     "version": "1.0",
     "release": "1",
     "summary": "Hello world examples in various languages",
+    "build-state": "wait",
     "dependencies": [
         "base-module-1.0-1"
     ],
@@ -39,15 +56,25 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-1.0-1' -d '
         "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
-    "build-state": "wait"
+    "components": {
+        "rpms": []
+    },
+    "api": {
+        "rpms": []
+    },
+    "install_profiles": {
+        "rpms": []
+    }
 }
 '
+
 curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-2.5-1' -d '
 {
     "name": "hello-world",
     "version": "2.5",
     "release": "1",
     "summary": "Hello world examples in various languages",
+    "build-state": "init",
     "dependencies": [
         "base-module-1.0-1"
     ],
@@ -55,7 +82,15 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-2.5-1' -d '
         "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
-    "build-state": "init"
+    "components": {
+        "rpms": []
+    },
+    "api": {
+        "rpms": []
+    },
+    "install_profiles": {
+        "rpms": []
+    }
 }
 '
 
@@ -72,7 +107,16 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/hello-world-2.4-1' -d '
         "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
-    "build-state": "wait"
+    "build-state": "wait",
+    "components": {
+        "rpms": []
+    },
+    "api": {
+        "rpms": []
+    },
+    "install_profiles": {
+        "rpms": []
+    }
 }
 '
 
@@ -89,7 +133,57 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-1.
         "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
-    "build-state": "ready"
+    "build-state": "build",
+    "components": {
+        "rpms": [
+            {
+                "name": "random-language",
+                "version": "1.0",
+                "release": "1",
+                "build_state": "succeeded"
+            },
+            {
+                "name": "random-language-feature",
+                "version": "2.1",
+                "release": "1",
+                "build_state": "running"
+            },
+            {
+                "name": "random-language-extension",
+                "version": "1.6",
+                "release": "5",
+                "build_state": "pending"
+            }
+        ]
+    },
+    "api": {
+        "rpms": [
+            "random-language",
+            "random-language-feature",
+            "random-language-extension"
+        ]
+    },
+    "install_profiles": {
+        "rpms": [
+            {
+                "name": "default",
+                "description": "The default installation of random language.",
+                "rpms": [
+                    "random-language",
+                    "random-language-feature"
+                ]
+            },
+            {
+                "name": "extended",
+                "description": "An extended installation of random language.",
+                "rpms": [
+                    "random-language",
+                    "random-language-feature",
+                    "random-language-extension"
+                ]
+            }
+        ]
+    }
 }
 '
 
@@ -106,7 +200,57 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.
         "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
-    "build-state": "ready"
+    "build-state": "build",
+    "components": {
+        "rpms": [
+            {
+                "name": "random-language",
+                "version": "2.0",
+                "release": "1",
+                "build_state": "succeeded"
+            },
+            {
+                "name": "random-language-feature",
+                "version": "2.2",
+                "release": "1",
+                "build_state": "running"
+            },
+            {
+                "name": "random-language-extension",
+                "version": "1.6",
+                "release": "5",
+                "build_state": "pending"
+            }
+        ]
+    },
+    "api": {
+        "rpms": [
+            "random-language",
+            "random-language-feature",
+            "random-language-extension"
+        ]
+    },
+    "install_profiles": {
+        "rpms": [
+            {
+                "name": "default",
+                "description": "The default installation of random language.",
+                "rpms": [
+                    "random-language",
+                    "random-language-feature"
+                ]
+            },
+            {
+                "name": "extended",
+                "description": "An extended installation of random language.",
+                "rpms": [
+                    "random-language",
+                    "random-language-feature",
+                    "random-language-extension"
+                ]
+            }
+        ]
+    }
 }
 '
 
@@ -123,7 +267,57 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.
         "build-stuff-4.2-1",
         "base-module-1.0-1"
     ],
-    "build-state": "ready"
+    "build-state": "build",
+    "components": {
+        "rpms": [
+            {
+                "name": "random-language",
+                "version": "2.0",
+                "release": "2",
+                "build_state": "succeeded"
+            },
+            {
+                "name": "random-language-feature",
+                "version": "2.2",
+                "release": "1",
+                "build_state": "running"
+            },
+            {
+                "name": "random-language-extension",
+                "version": "1.6",
+                "release": "5",
+                "build_state": "pending"
+            }
+        ]
+    },
+    "api": {
+        "rpms": [
+            "random-language",
+            "random-language-feature",
+            "random-language-extension"
+        ]
+    },
+    "install_profiles": {
+        "rpms": [
+            {
+                "name": "default",
+                "description": "The default installation of random language.",
+                "rpms": [
+                    "random-language",
+                    "random-language-feature"
+                ]
+            },
+            {
+                "name": "extended",
+                "description": "An extended installation of random language.",
+                "rpms": [
+                    "random-language",
+                    "random-language-feature",
+                    "random-language-extension"
+                ]
+            }
+        ]
+    }
 }
 '
 
@@ -142,7 +336,16 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-app-1.0-1' -d '
         "base-module-1.0-1",
         "random-language-stack-1.0-1"
     ],
-    "build-state": "build"
+    "build-state": "build",
+    "components": {
+        "rpms": []
+    },
+    "api": {
+        "rpms": []
+    },
+    "install_profiles": {
+        "rpms": []
+    }
 }
 '
 curl -XPUT 'http://elasticsearch:9200/modularity/module/random-app-2.0-1' -d '
@@ -160,7 +363,16 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-app-2.0-1' -d '
         "base-module-1.0-1",
         "random-language-stack-2.0-1"
     ],
-    "build-state": "build"
+    "build-state": "build",
+    "components": {
+        "rpms": []
+    },
+    "api": {
+        "rpms": []
+    },
+    "install_profiles": {
+        "rpms": []
+    }
 }
 '
 
@@ -179,6 +391,15 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-app-2.0-2' -d '
         "base-module-1.0-1",
         "random-language-stack-2.0-2"
     ],
-    "build-state": "failed"
+    "build-state": "failed",
+    "components": {
+        "rpms": []
+    },
+    "api": {
+        "rpms": []
+    },
+    "install_profiles": {
+        "rpms": []
+    }
 }
 '
