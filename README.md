@@ -20,24 +20,24 @@ Requires docker 1.10 and docker-compose 1.7
 
 ID: `name-version-release`
 
-```
+```PYTHON
 {
     "name": "module_name",
     "version": "module_version",
     "release": "module_release",
     "build_state": "build_state"
     "dependencies": [
-        "name-version-release",    # link to another module document
+        "name-version-release",                  # link to another module document
         "..."
     ],
     "dependencies_build": [
-        "name-version-release",    # link to another module document
+        "name-version-release",                  # link to another module document
         "..."
     ],
     "components": {
-        "rpms": [                   # the actual built RPM packages
+        "rpms": [                                # the actual built RPM packages
             {
-                "name": "pkg_name",         # pkg name is a unique ID in a module
+                "name": "pkg_name",              # pkg name is a unique ID in a module
                 "version": "pkg_version",
                 "release": "pkg_release",
                 "build_state": "pkg_build_state",
