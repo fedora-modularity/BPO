@@ -55,15 +55,15 @@ h1.section-heading {
 
 
 .build-progress li.pending a {
-  background-color: #302cd2;
+  background-color: #3c4ab3;
   color: white;
 }
 .build-progress li.pending a:before {
-  border-color: #302cd2;
+  border-color: #3c4ab3;
   border-left-color: transparent;
 }
 .build-progress li.pending a:after {
-  border-left-color: #302cd2;
+  border-left-color: #3c4ab3;
 }
 
 .build-progress li.pending a:hover {
@@ -78,7 +78,7 @@ h1.section-heading {
 }
 
 .text-color-pending {
-  color: #302cd2;
+  color: #3c4ab3;
 }
 
 
@@ -188,4 +188,3 @@ h1.section-heading {
 .text-color-failed {
   color: #c00;
 }
-
