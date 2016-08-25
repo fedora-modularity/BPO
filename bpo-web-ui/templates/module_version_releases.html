@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% from "_modules_table.html" import modules_table %}
+{% from "_build_state.html" import build_state_simple %}
 
 {% block body %}
 <div class="container">
@@ -9,7 +10,7 @@
     / <strong>
         <a href="{{ url_for("module_versions", name=name) }}">{{ name }}</a>
         - {{ version }}
-      </strong> 
+      </strong>
   </h1>
 
 
@@ -17,12 +18,14 @@
     <thead>
       <tr>
         <th>Release</th>
+        <th>Build State</th>
       </tr>
     </thead>
     <tbody>
     {% for module in documents %}
       <tr>
         <td><strong><a href="{{ url_for("module_overview", name=name, version=version, release=module._source.release) }}">{{ module._source.release }}</a></strong></td>
+        <td>{{ build_state_simple(module._source["build-state"]) }}</td>
       </tr>
     {% endfor %}
     </tbody>
