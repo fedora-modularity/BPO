@@ -141,10 +141,26 @@ def module_components(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/api/')
 def module_api(name, version, release):
     module = get_module(name, version, release)
+
+    components = module["_source"]["components"]
+
+    api_names = module["_source"]["api"]["rpms"]
+
+    api_rpms = []
+
+    for component in components["rpms"]:
+        if component["name"] in api_names:
+            pkg = "{}-{}-{}".format(component["name"],
+                                   component["version"],
+                                   component["release"])
+            api_rpms.append(pkg)
+
+
     return render_template("module/api.html",
                             name=name,
                             version=version,
-                            release=release)
+                            release=release,
+                            api_rpms=api_rpms)
 
 @app.route('/modules/<name>/<version>/<release>/install_profiles/')
 def module_install_profiles(name, version, release):

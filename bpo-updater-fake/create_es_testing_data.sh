@@ -153,6 +153,12 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-1.
                 "version": "1.6",
                 "release": "5",
                 "build_state": "pending"
+            },
+            {
+                "name": "random-bundled-dependency",
+                "version": "1.8",
+                "release": "1",
+                "build_state": "pending"
             }
         ]
     },
@@ -169,7 +175,8 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-1.
             "description": "The default installation of random language.",
             "rpms": [
                 "random-language",
-                "random-language-feature"
+                "random-language-feature",
+                "random-bundled-dependency"
             ]
         },
         {
@@ -178,7 +185,8 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-1.
             "rpms": [
                 "random-language",
                 "random-language-feature",
-                "random-language-extension"
+                "random-language-extension",
+                "random-bundled-dependency"
             ]
         }
     ]
@@ -218,6 +226,12 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.
                 "version": "1.6",
                 "release": "5",
                 "build_state": "pending"
+            },
+            {
+                "name": "random-bundled-dependency",
+                "version": "1.8",
+                "release": "1",
+                "build_state": "pending"
             }
         ]
     },
@@ -234,7 +248,8 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.
             "description": "The default installation of random language.",
             "rpms": [
                 "random-language",
-                "random-language-feature"
+                "random-language-feature",
+                "random-bundled-dependency"
             ]
         },
         {
@@ -243,7 +258,8 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.
             "rpms": [
                 "random-language",
                 "random-language-feature",
-                "random-language-extension"
+                "random-language-extension",
+                "random-bundled-dependency"
             ]
         }
     ]
@@ -283,6 +299,12 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.
                 "version": "1.6",
                 "release": "5",
                 "build_state": "pending"
+            },
+            {
+                "name": "random-bundled-dependency",
+                "version": "1.8",
+                "release": "1",
+                "build_state": "pending"
             }
         ]
     },
@@ -299,7 +321,8 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.
             "description": "The default installation of random language.",
             "rpms": [
                 "random-language",
-                "random-language-feature"
+                "random-language-feature",
+                "random-bundled-dependency"
             ]
         },
         {
@@ -308,7 +331,8 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.
             "rpms": [
                 "random-language",
                 "random-language-feature",
-                "random-language-extension"
+                "random-language-extension",
+                "random-bundled-dependency"
             ]
         }
     ]
