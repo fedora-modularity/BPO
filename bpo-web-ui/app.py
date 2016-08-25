@@ -116,16 +116,40 @@ def get_module(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/')
 def module_overview(name, version, release):
     module = get_module(name, version, release)
+
+    components = module["_source"]["components"]
+
     return render_template("module/overview.html",
                             name=name,
                             version=version,
                             release=release,
-                            module=module)
+                            module=module,
+                            components=components)
 
-@app.route('/modules/<name>/<version>/<release>/packages/')
-def module_packages(name, version, release):
+@app.route('/modules/<name>/<version>/<release>/components/')
+def module_components(name, version, release):
     module = get_module(name, version, release)
-    return render_template("module/packages.html",
+
+    components = module["_source"]["components"]
+
+    return render_template("module/components.html",
+                            name=name,
+                            version=version,
+                            release=release,
+                            components=components)
+
+@app.route('/modules/<name>/<version>/<release>/api/')
+def module_api(name, version, release):
+    module = get_module(name, version, release)
+    return render_template("module/api.html",
+                            name=name,
+                            version=version,
+                            release=release)
+
+@app.route('/modules/<name>/<version>/<release>/install_profiles/')
+def module_install_profiles(name, version, release):
+    module = get_module(name, version, release)
+    return render_template("module/install_profiles.html",
                             name=name,
                             version=version,
                             release=release)
@@ -171,8 +195,8 @@ def module_dependencies_build(name, version, release):
                             dependencies=dependencies)
 
 
-@app.route('/modules/<name>/<version>/<release>/required_by/')
-def module_required_by(name, version, release):
+@app.route('/modules/<name>/<version>/<release>/dependency_of/')
+def module_dependency_of(name, version, release):
     module = get_module(name, version, release)
 
     query = {
@@ -191,17 +215,17 @@ def module_required_by(name, version, release):
     }
 
     res = es.search(index="modularity", doc_type='module', body=query)
-    required_by = res["hits"]["hits"]
+    dependency_of = res["hits"]["hits"]
 
-    return render_template("module/required-by/runtime.html",
+    return render_template("module/dependency-of/runtime.html",
                             name=name,
                             version=version,
                             release=release,
-                            required_by=required_by)
+                            dependency_of=dependency_of)
 
 
-@app.route('/modules/<name>/<version>/<release>/required_by/build/')
-def module_required_by_build(name, version, release):
+@app.route('/modules/<name>/<version>/<release>/dependency_of/build/')
+def module_dependency_of_build(name, version, release):
     module = get_module(name, version, release)
 
     query = {
@@ -220,13 +244,21 @@ def module_required_by_build(name, version, release):
     }
 
     res = es.search(index="modularity", doc_type='module', body=query)
-    required_by = res["hits"]["hits"]
+    dependency_of = res["hits"]["hits"]
 
-    return render_template("module/required-by/build.html",
+    return render_template("module/dependency-of/build.html",
                             name=name,
                             version=version,
                             release=release,
-                            required_by=required_by)
+                            dependency_of=dependency_of)
+
+@app.route('/modules/<name>/<version>/<release>/component_of/')
+def module_component_of(name, version, release):
+    module = get_module(name, version, release)
+    return render_template("module/component_of.html",
+                            name=name,
+                            version=version,
+                            release=release)
 
 @app.route('/modules/<name>/<version>/<release>/artifacts/')
 def module_artifacts(name, version, release):

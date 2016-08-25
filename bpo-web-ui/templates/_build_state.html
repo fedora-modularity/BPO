@@ -1,62 +1,256 @@
-{% macro build_state_simple(state) %}
-{% if state == "init" %}
-<span>Importing: Running</span>
+{% macro rpm_build_state(state) %}
 
-{% elif state == "wait" %}
-<span>Building Components: Pending</span>
+  {% if state == "pending" %}
+  <span class="text-info">Pending</span>
 
-{% elif state == "build" %}
-<span>Building Components: Running</span>
+  {% elif state == "running" %}
+  <span class="text-warning">Running</span>
 
-{% elif state == "done" %}
-<span>Rebuilding the World: Pending</span>
+  {% elif state == "succeeded" %}
+  <span class="text-success">Succeeded</span>
 
-{% elif state == "ready" %}
-<span>Distributing: Pending</span>
+  {% else %}
+  <span class="text-muted">Unknown</span>
+  {% endif %}
 
-{% elif state == "failed" %}
-<span>Build Failed</span>
-
-{% endif %}
 {% endmacro %}
 
 
-{% macro build_state(state) %}
-<ul class="nav nav-pills nav-justified build-progress">
+{% macro components_table(components) %}
 
-{% if state == "init" %}
-  <li class="running"><a href="#"><strong>Importing</strong><br> Running </a></li>
-  <li class="shadow"><a href="#"><strong>Building Components</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Rebuilding the World</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Distributing</strong><br> </a></li>
+  <table class="table table-bordered table-stripped">
+    <thead>
+      <tr>
+        <th>Component Name</th>
+        <th>Build State</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for component in components.rpms %}
+      <tr>
+        <td>{{ component.name }}-{{ component.version }}-{{ component.release }}</td>
+        <td>{{ rpm_build_state(component.build_state) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-{% elif state == "wait" %}
-  <li class="succeeded"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
-  <li class="pending"><a href="#"><strong>Building Components</strong><br> Pending </a></li>
-  <li class="shadow"><a href="#"><strong>Rebuilding the World</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Distributing</strong><br> </a></li>
+{% endmacro %}
 
-{% elif state == "build" %}
-  <li class="succeeded"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
-  <li class="running"><a href="#"><strong>Building Components</strong><br> Running </a></li>
-  <li class="shadow"><a href="#"><strong>Rebuilding the World</strong><br> </a></li>
-  <li class="shadow"><a href="#"><strong>Distributing</strong><br> </a></li>
 
-{% elif state == "done" %}
-  <li class="succeeded"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
-  <li class="succeeded"><a href="#"><strong>Building Components</strong><br> Succeeded </a></li>
-  <li class="pending"><a href="#"><strong>Rebuilding the World</strong><br> Pending </a></li>
-  <li class="shadow"><a href="#"><strong>Distributing</strong><br> </a></li>
+{% macro build_state_simple(state) %}
+  {% if state == "init" %}
+  <span>Importing: Running</span>
 
-{% elif state == "ready" %}
-  <li class="succeeded"><a href="#"><strong>Importing</strong><br> Succeeded </a></li>
-  <li class="succeeded"><a href="#"><strong>Building Components</strong><br> Succeeded </a></li>
-  <li class="succeeded"><a href="#"><strong>Rebuilding the World</strong><br> Succeeded</a></li>
-  <li class="pending"><a href="#"><strong>Distributing</strong><br> Pending </a></li>
+  {% elif state == "wait" %}
+  <span>Building Components: Pending</span>
 
-{% elif state == "failed" %}
-  <li class="failed"><a href="#"><strong>Build Failed</strong><br> More details about build failures will be available in later versions. </a></li>
+  {% elif state == "build" %}
+  <span>Building Components: Running</span>
 
-{% endif %}
-</ul>
+  {% elif state == "done" %}
+  <span>Rebuilding the World: Pending</span>
+
+  {% elif state == "ready" %}
+  <span>Distributing: Pending</span>
+
+  {% elif state == "failed" %}
+  <span>Build Failed</span>
+
+  {% endif %}
+{% endmacro %}
+
+
+{% macro build_state(state, components) %}
+
+  {% if state == "init" %}
+
+    {% set phase_1_css = "running" %}
+    {% set phase_1_text = "Running" %}
+
+    {% set phase_2_css = "shadow" %}
+    {% set phase_2_text = "" %}
+
+    {% set phase_3_css = "shadow" %}
+    {% set phase_3_text = "" %}
+
+    {% set phase_4_css = "shadow" %}
+    {% set phase_4_text = "" %}
+
+
+  {% elif state == "wait" %}
+
+    {% set phase_1_css = "succeeded" %}
+    {% set phase_1_text = "Succeeded" %}
+
+    {% set phase_2_css = "pending" %}
+    {% set phase_2_text = "Pending" %}
+
+    {% set phase_3_css = "shadow" %}
+    {% set phase_3_text = "" %}
+
+    {% set phase_4_css = "shadow" %}
+    {% set phase_4_text = "" %}
+
+
+  {% elif state == "build" %}
+
+    {% set phase_1_css = "succeeded" %}
+    {% set phase_1_text = "Succeeded" %}
+
+    {% set phase_2_css = "running" %}
+    {% set phase_2_text = "Running" %}
+
+    {% set phase_3_css = "shadow" %}
+    {% set phase_3_text = "" %}
+
+    {% set phase_4_css = "shadow" %}
+    {% set phase_4_text = "" %}
+
+
+  {% elif state == "done" %}
+
+    {% set phase_1_css = "succeeded" %}
+    {% set phase_1_text = "Succeeded" %}
+
+    {% set phase_2_css = "succeeded" %}
+    {% set phase_2_text = "Succeeded" %}
+
+    {% set phase_3_css = "pending" %}
+    {% set phase_3_text = "Pending" %}
+
+    {% set phase_4_css = "shadow" %}
+    {% set phase_4_text = "" %}
+
+
+  {% elif state == "ready" %}
+
+    {% set phase_1_css = "succeeded" %}
+    {% set phase_1_text = "Succeeded" %}
+
+    {% set phase_2_css = "succeeded" %}
+    {% set phase_2_text = "Succeeded" %}
+
+    {% set phase_3_css = "succeeded" %}
+    {% set phase_3_text = "Succeeded" %}
+
+    {% set phase_4_css = "pending" %}
+    {% set phase_4_text = "Pending" %}
+
+
+  {% elif state == "failed" %}
+
+    {% set phase_1_css = "succeeded" %}
+    {% set phase_1_text = "Succeeded" %}
+
+    {% set phase_2_css = "failed" %}
+    {% set phase_2_text = "Failed" %}
+
+    {% set phase_3_css = "shadow" %}
+    {% set phase_3_text = "" %}
+
+    {% set phase_4_css = "shadow" %}
+    {% set phase_4_text = "" %}
+
+  {% endif %}
+
+  <ul class="nav nav-pills nav-justified build-progress">
+    <li class="{{phase_1_css}}">
+      <a href="#importing-modal" data-toggle="modal" data-target="#importing-modal">
+        <strong>Importing</strong><br> {{phase_1_text}}
+      </a>
+    </li>
+    <li class="{{phase_2_css}}">
+      <a href="#components-modal" data-toggle="modal" data-target="#components-modal">
+        <strong>Building Components</strong><br> {{phase_2_text}}
+      </a>
+    </li>
+    <li class="{{phase_3_css}}">
+      <a href="#rebuilding-modal" data-toggle="modal" data-target="#rebuilding-modal">
+        <strong>Rebuilding the World</strong><br> {{phase_3_text}}
+      </a>
+    </li>
+    <li class="{{phase_4_css}}">
+      <a href="#distributing-modal" data-toggle="modal" data-target="#distributing-modal">
+        <strong>Distributing</strong><br> {{phase_4_text}}
+      </a>
+    </li>
+  </ul>
+
+
+  <div class="modal fade " id="importing-modal" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  <span class="pficon pficon-close"></span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Importing: Succeeded</h4>
+              </div>
+              <div class="modal-body">
+                <div class="alert alert-info">
+                  <span class="pficon pficon-info"></span>
+                  <strong>Not implemented, yet.</strong> This feature will be available in the future.
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal fade" id="components-modal" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  <span class="pficon pficon-close"></span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Building Components: Succeeded</h4>
+              </div>
+              <div class="modal-body">
+                {{ components_table(components) }}
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal fade" id="rebuilding-modal" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  <span class="pficon pficon-close"></span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Rebuilding the World: Succeeded</h4>
+              </div>
+              <div class="modal-body">
+                <div class="alert alert-info">
+                  <span class="pficon pficon-info"></span>
+                  <strong>Not implemented, yet.</strong> This feature will be available in the future.
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal fade" id="distributing-modal" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  <span class="pficon pficon-close"></span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Distributing: Pending</h4>
+              </div>
+              <div class="modal-body">
+                <div class="alert alert-info">
+                  <span class="pficon pficon-info"></span>
+                  <strong>Not implemented, yet.</strong> This feature will be available in the future.
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
 {% endmacro %}
