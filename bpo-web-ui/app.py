@@ -165,10 +165,14 @@ def module_api(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/install_profiles/')
 def module_install_profiles(name, version, release):
     module = get_module(name, version, release)
+
+    install_profiles = module["_source"]["install_profiles"]
+
     return render_template("module/install_profiles.html",
                             name=name,
                             version=version,
-                            release=release)
+                            release=release,
+                            install_profiles=install_profiles)
 
 @app.route('/modules/<name>/<version>/<release>/dependencies/')
 def module_dependencies(name, version, release):

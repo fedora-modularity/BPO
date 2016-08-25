@@ -6,20 +6,14 @@
 
 <h2> API </h2>
 
-<table class="table table-bordered table-stripped">
-  <thead>
-    <tr>
-      <th>Package Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for pkg in api_rpms %}
-    <tr>
-      <td>{{ pkg }}</td>
-    </tr>
+<li class="list-group-item">
+  <h5>Packages:</h5>
+  <ul>
+    {% for rpm in api_rpms %}
+    <li>{{rpm}}</li>
     {% endfor %}
-  </tbody>
-</table>
+  </ul>
+</li>
 
 
 

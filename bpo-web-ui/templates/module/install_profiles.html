@@ -6,13 +6,20 @@
 
 <h2> Install Profiles </h2>
 
-<div class="alert alert-info alert-dismissable">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-    <span class="pficon pficon-close"></span>
-  </button>
-  <span class="pficon pficon-info"></span>
-  <strong>Not implemented, yet.</strong> This feature will be available in the future.
-</div>
+<ul class="list-group">
+{% for profile in install_profiles %}
+  <li class="list-group-item">
+    <h4 class="list-group-item-heading">{{profile.name}}</h4>
+    <p class="list-group-item-text">{{profile.description}}</p>
+    <h5> Packages: </h5>
+    <ul>
+      {% for rpm in profile.rpms %}
+      <li>{{rpm}}</li>
+      {% endfor %}
+    </ul>
+  </li>
+{% endfor %}
+</ul>
 
 
 {% endblock %}
