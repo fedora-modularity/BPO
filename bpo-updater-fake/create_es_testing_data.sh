@@ -163,27 +163,25 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-1.
             "random-language-extension"
         ]
     },
-    "install_profiles": {
-        "rpms": [
-            {
-                "name": "default",
-                "description": "The default installation of random language.",
-                "rpms": [
-                    "random-language",
-                    "random-language-feature"
-                ]
-            },
-            {
-                "name": "extended",
-                "description": "An extended installation of random language.",
-                "rpms": [
-                    "random-language",
-                    "random-language-feature",
-                    "random-language-extension"
-                ]
-            }
-        ]
-    }
+    "install_profiles": [
+        {
+            "name": "default",
+            "description": "The default installation of random language.",
+            "rpms": [
+                "random-language",
+                "random-language-feature"
+            ]
+        },
+        {
+            "name": "extended",
+            "description": "An extended installation of random language.",
+            "rpms": [
+                "random-language",
+                "random-language-feature",
+                "random-language-extension"
+            ]
+        }
+    ]
 }
 '
 
@@ -230,27 +228,25 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.
             "random-language-extension"
         ]
     },
-    "install_profiles": {
-        "rpms": [
-            {
-                "name": "default",
-                "description": "The default installation of random language.",
-                "rpms": [
-                    "random-language",
-                    "random-language-feature"
-                ]
-            },
-            {
-                "name": "extended",
-                "description": "An extended installation of random language.",
-                "rpms": [
-                    "random-language",
-                    "random-language-feature",
-                    "random-language-extension"
-                ]
-            }
-        ]
-    }
+    "install_profiles": [
+        {
+            "name": "default",
+            "description": "The default installation of random language.",
+            "rpms": [
+                "random-language",
+                "random-language-feature"
+            ]
+        },
+        {
+            "name": "extended",
+            "description": "An extended installation of random language.",
+            "rpms": [
+                "random-language",
+                "random-language-feature",
+                "random-language-extension"
+            ]
+        }
+    ]
 }
 '
 
@@ -297,27 +293,25 @@ curl -XPUT 'http://elasticsearch:9200/modularity/module/random-language-stack-2.
             "random-language-extension"
         ]
     },
-    "install_profiles": {
-        "rpms": [
-            {
-                "name": "default",
-                "description": "The default installation of random language.",
-                "rpms": [
-                    "random-language",
-                    "random-language-feature"
-                ]
-            },
-            {
-                "name": "extended",
-                "description": "An extended installation of random language.",
-                "rpms": [
-                    "random-language",
-                    "random-language-feature",
-                    "random-language-extension"
-                ]
-            }
-        ]
-    }
+    "install_profiles": [
+        {
+            "name": "default",
+            "description": "The default installation of random language.",
+            "rpms": [
+                "random-language",
+                "random-language-feature"
+            ]
+        },
+        {
+            "name": "extended",
+            "description": "An extended installation of random language.",
+            "rpms": [
+                "random-language",
+                "random-language-feature",
+                "random-language-extension"
+            ]
+        }
+    ]
 }
 '
 
