@@ -12,6 +12,17 @@ es = Elasticsearch(hosts=[{'host': 'elasticsearch', 'port': 9200}])
 def safe_input(string):
     return re.sub(r'[^a-zA-Z0-9\-_. ]', '', string)
 
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
+
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -110,12 +121,19 @@ def get_module(name, version, release):
 
     res = es.search(index="modularity", doc_type='module', body=query)
 
-    module = res["hits"]["hits"][0]
+    try:
+        module = res["hits"]["hits"][0]
+    except:
+        return None
+
     return module
+
 
 @app.route('/modules/<name>/<version>/<release>/')
 def module_overview(name, version, release):
     module = get_module(name, version, release)
+    if not module:
+        return render_template('404.html'), 404
 
     try:
         components = module["_source"]["components"]
@@ -132,6 +150,8 @@ def module_overview(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/components/')
 def module_components(name, version, release):
     module = get_module(name, version, release)
+    if not module:
+        return render_template('404.html'), 404
 
     try:
         components = module["_source"]["components"]
@@ -147,6 +167,8 @@ def module_components(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/api/')
 def module_api(name, version, release):
     module = get_module(name, version, release)
+    if not module:
+        return render_template('404.html'), 404
 
     try:
         components = module["_source"]["components"]
@@ -177,6 +199,8 @@ def module_api(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/install_profiles/')
 def module_install_profiles(name, version, release):
     module = get_module(name, version, release)
+    if not module:
+        return render_template('404.html'), 404
 
     try:
         install_profiles = module["_source"]["install_profiles"]
@@ -192,6 +216,8 @@ def module_install_profiles(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/dependencies/')
 def module_dependencies(name, version, release):
     module = get_module(name, version, release)
+    if not module:
+        return render_template('404.html'), 404
 
     deps_ids = module["_source"]["dependencies"]
     if deps_ids:
@@ -212,6 +238,8 @@ def module_dependencies(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/dependencies/build/')
 def module_dependencies_build(name, version, release):
     module = get_module(name, version, release)
+    if not module:
+        return render_template('404.html'), 404
 
     deps_ids = module["_source"]["dependencies-build"]
     if deps_ids:
@@ -233,6 +261,8 @@ def module_dependencies_build(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/dependency_of/')
 def module_dependency_of(name, version, release):
     module = get_module(name, version, release)
+    if not module:
+        return render_template('404.html'), 404
 
     query = {
         "query": {
@@ -262,6 +292,8 @@ def module_dependency_of(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/dependency_of/build/')
 def module_dependency_of_build(name, version, release):
     module = get_module(name, version, release)
+    if not module:
+        return render_template('404.html'), 404
 
     query = {
         "query": {
@@ -290,6 +322,9 @@ def module_dependency_of_build(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/component_of/')
 def module_component_of(name, version, release):
     module = get_module(name, version, release)
+    if not module:
+        return render_template('404.html'), 404
+
     return render_template("module/component_of.html",
                             name=name,
                             version=version,
@@ -298,6 +333,9 @@ def module_component_of(name, version, release):
 @app.route('/modules/<name>/<version>/<release>/artifacts/')
 def module_artifacts(name, version, release):
     module = get_module(name, version, release)
+    if not module:
+        return render_template('404.html'), 404
+        
     return render_template("module/artifacts.html",
                             name=name,
                             version=version,
