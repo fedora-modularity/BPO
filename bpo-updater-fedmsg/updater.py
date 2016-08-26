@@ -48,7 +48,16 @@ def module_state_change(msg):
         "build-state": state,
         "dependencies": [],
         "dependencies-build": [],
-        "summary": ""
+        "summary": "",
+        "components": {
+            "rpms": []
+        },
+        "api": {
+            "rpms": []
+        },
+        "install_profiles": {
+            "rpms": []
+        }
     }
 
     try:
