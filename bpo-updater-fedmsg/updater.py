@@ -6,11 +6,19 @@ import json
 import sys
 from datetime import datetime
 
-fedmsg_config = fedmsg.config.load_config()
-es = Elasticsearch(hosts=[{'host': 'elasticsearch', 'port': 9200}])
 
+# Configuration
+# This should be in a config file, really
 config_topic = "org.fedoraproject.dev.rida.module.state.change"
 config_pdc_url = "http://dev.fed-mod.org:8080"
+config_es_url = "elasticsearch"
+config_es_port = 9200
+
+
+
+fedmsg_config = fedmsg.config.load_config()
+es = Elasticsearch(hosts=[{'host': config_es_url, 'port': config_es_port}])
+
 
 def get_dependencies(name, version, release):
     url = "{pdc_url}/rest_api/v1/unreleasedvariants/?variant_name={name}&variant_version={version}&variant_release={release}".format(
@@ -31,7 +39,7 @@ def log(*args, **kwargs):
 
 
 def module_state_change(msg):
-    log ("{}    Module state change: {}".format(datetime.now(),topic))
+    log ("{}    Module state change: {}\n".format(datetime.now(),topic))
     name = msg.get("name")
     version = msg.get("version")
     release = msg.get("release")
@@ -64,7 +72,7 @@ def module_state_change(msg):
 
     try:
         es.create(index="modularity", doc_type="module", id=id, body=document)
-        log("es created")
+        log("Elasticsearch: created")
     except:
         document = {
             "doc": {
@@ -75,13 +83,16 @@ def module_state_change(msg):
             }
         }
         es.update(index="modularity", doc_type="module", id=id, body=document)
-        log("es updated")
+        log("Elasticsearch: updated")
 
 
 
 for name, endpoint, topic, msg in fedmsg.tail_messages(**fedmsg_config):
     log("\n\n==============================================\n")
-    log("{}    Fedmsg received: {}\n\n{}".format(datetime.now(),topic,msg))
+    log("Fedmsg received!\n")
+    log("Time:   {}".format(datetime.now()))
+    log("Topic:  {}".format(topic))
+    log("Message:\n{}\n".format(msg))
 
     if config_topic == topic:
         module_state_change(msg["msg"])
