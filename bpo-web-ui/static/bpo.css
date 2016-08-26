@@ -67,14 +67,14 @@ h1.section-heading {
 }
 
 .build-progress li.pending a:hover {
-  background-color: #2623a5;
+  background-color: #303c91;
 }
 .build-progress li.pending a:hover:before {
-  border-color: #2623a5;
+  border-color: #303c91;
   border-left-color: transparent;
 }
 .build-progress li.pending a:hover:after {
-  border-left-color: #2623a5;
+  border-left-color: #303c91;
 }
 
 .text-color-pending {
