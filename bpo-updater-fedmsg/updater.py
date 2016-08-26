@@ -29,12 +29,12 @@ def log(*args, **kwargs):
 
 
 def module_state_change(msg):
-    print ("{}    Module state change: {}".format(datetime.now(),topic))
+    log ("{}    Module state change: {}".format(datetime.now(),topic))
     name = msg.get("name")
     version = msg.get("version")
     release = msg.get("release")
     state = msg.get("state_name")
-    print ("Name: {}\nVersion: {}\nRelease: {}\nState: {}".format(name, version, release, state))
+    log ("Name: {}\nVersion: {}\nRelease: {}\nState: {}".format(name, version, release, state))
 
     if not name or not version or not release or not state:
         return
