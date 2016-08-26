@@ -9,7 +9,7 @@ services:
     ports:
       - "80:5000"
     volumes:
-      - .:/code/bpo-web-ui
+      - ./bpo-web-ui:/code
     depends_on:
       - elasticsearch
 
@@ -25,7 +25,7 @@ services:
       context: .
       dockerfile: Dockerfile.bpo-updater-fedmsg
     volumes:
-      - .:/code/bpo-updater-fedmsg
+      - ./bpo-updater-fedmsg:/code
       - ./config/dev/fedmsg.d:/etc/fedmsg.d
     depends_on:
       - elasticsearch
@@ -36,7 +36,7 @@ services:
       context: .
       dockerfile: Dockerfile.bpo-updater-mappings
     volumes:
-      - .:/code/bpo-updater-mappings
+      - ./bpo-updater-mappings:/code
     depends_on:
       - elasticsearch
 
@@ -50,7 +50,7 @@ services:
       context: .
       dockerfile: Dockerfile.bpo-updater-testing-data
     volumes:
-      - .:/code/bpo-updater-testing-data
+      - ./bpo-updater-testing-data:/code
     depends_on:
       - elasticsearch
 
@@ -60,7 +60,7 @@ services:
       context: .
       dockerfile: Dockerfile.fedmsg-relay
     volumes:
-      - .:/code/fedmsg-relay
+      - ./fedmsg-relay:/code
       - ./config/dev/fedmsg.d:/etc/fedmsg.d
 
   # Emits testing fedmsg messages mainly to test the fedmsg updater
@@ -71,5 +71,5 @@ services:
     depends_on:
       - fedmsg-relay
     volumes:
-      - .:/code/fedmsg-emitter
+      - ./fedmsg-emitter:/code
       - ./config/dev/fedmsg.d:/etc/fedmsg.d

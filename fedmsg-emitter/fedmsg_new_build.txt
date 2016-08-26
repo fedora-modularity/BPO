@@ -1,1 +1,1 @@
-{   "builds": [    12,    34,    56,    78  ],  "state": "build",  "version": "1.0",  "release": "1",  "id": 18,  "name": "random-language-stack"}
+{   "builds": [    12,    34,    56,    78  ],  "state_name": "ready",  "version": "43.0",  "release": "1",  "id": 18,  "name": "random-language-stack"}

@@ -3,6 +3,8 @@ import fedmsg.config
 from elasticsearch import Elasticsearch
 import urllib.request
 import json
+import sys
+from datetime import datetime
 
 fedmsg_config = fedmsg.config.load_config()
 es = Elasticsearch(hosts=[{'host': 'elasticsearch', 'port': 9200}])
