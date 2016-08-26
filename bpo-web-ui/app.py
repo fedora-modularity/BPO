@@ -117,7 +117,10 @@ def get_module(name, version, release):
 def module_overview(name, version, release):
     module = get_module(name, version, release)
 
-    components = module["_source"]["components"]
+    try:
+        components = module["_source"]["components"]
+    except KeyError:
+        components = {"rpms": []}
 
     return render_template("module/overview.html",
                             name=name,
@@ -130,7 +133,10 @@ def module_overview(name, version, release):
 def module_components(name, version, release):
     module = get_module(name, version, release)
 
-    components = module["_source"]["components"]
+    try:
+        components = module["_source"]["components"]
+    except KeyError:
+        components = {"rpms": []}
 
     return render_template("module/components.html",
                             name=name,
@@ -142,9 +148,15 @@ def module_components(name, version, release):
 def module_api(name, version, release):
     module = get_module(name, version, release)
 
-    components = module["_source"]["components"]
+    try:
+        components = module["_source"]["components"]
+    except KeyError:
+        components = {"rpms": []}
 
-    api_names = module["_source"]["api"]["rpms"]
+    try:
+        api_names = module["_source"]["api"]["rpms"]
+    except KeyError:
+        api_names = {"rpms": []}
 
     api_rpms = []
 
@@ -166,7 +178,10 @@ def module_api(name, version, release):
 def module_install_profiles(name, version, release):
     module = get_module(name, version, release)
 
-    install_profiles = module["_source"]["install_profiles"]
+    try:
+        install_profiles = module["_source"]["install_profiles"]
+    except KeyError:
+        install_profiles = {"rpms": []}
 
     return render_template("module/install_profiles.html",
                             name=name,
