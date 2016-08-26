@@ -5,5 +5,5 @@ ENV LANG=en_US.utf8
 RUN dnf install -y python3-elasticsearch python3-fedmsg-core
 
 ADD bpo-updater-fedmsg /code
-WORKDIR /code/bpo-updater-fedmsg
+WORKDIR /code
 CMD python3 -u updater.py

@@ -5,5 +5,5 @@ ENV LANG=en_US.utf8
 RUN dnf install -y python3-elasticsearch python3-fedmsg-core fedmsg*
 
 ADD fedmsg-emitter /code
-WORKDIR /code/fedmsg-emitter
+WORKDIR /code
 CMD /bin/sh fedmsg.sh
