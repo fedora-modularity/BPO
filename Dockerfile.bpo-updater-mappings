@@ -4,6 +4,6 @@ ENV LANG=en_US.utf8
 
 RUN dnf install -y python3-elasticsearch
 
-ADD bpo-updater-fake /code
+ADD bpo-updater-mappings /code
 WORKDIR /code
 CMD /bin/sh run.sh

@@ -1,5 +1,7 @@
 version: '2'
 services:
+
+  # Web UI
   bpo-web-ui:
     build:
       context: .
@@ -7,37 +9,61 @@ services:
     ports:
       - "80:5000"
     volumes:
-      - .:/code
+      - .:/code/bpo-web-ui
     depends_on:
       - elasticsearch
-  bpo-updater-fake:
-    build:
-      context: .
-      dockerfile: Dockerfile.bpo-updater-fake
+
+  # Elasticsearch - as a db/cache and a search engine
+  elasticsearch:
+    image: elasticsearch
     volumes:
-      - .:/code
-    depends_on:
-      - elasticsearch
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
+  # Service listening to fedmsg and updating Elasticsearch
   bpo-updater-fedmsg:
     build:
       context: .
       dockerfile: Dockerfile.bpo-updater-fedmsg
     volumes:
-      - .:/code
-      - ./config/fedmsg.d:/etc/fedmsg.d
+      - .:/code/bpo-updater-fedmsg
+      - ./config/dev/fedmsg.d:/etc/fedmsg.d
     depends_on:
       - elasticsearch
-  elasticsearch:
-    image: elasticsearch
+
+  # Service that creates data mappings in Elasticsearch and dies. Poor service!
+  bpo-updater-mappings:
+    build:
+      context: .
+      dockerfile: Dockerfile.bpo-updater-mappings
     volumes:
-      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - .:/code/bpo-updater-mappings
+    depends_on:
+      - elasticsearch
+
+  #====================================================================#
+  # Following are supportive services for development, not used in production#
+  #====================================================================#
+
+  # Creates testing data in elasticsearch
+  bpo-updater-testing-data:
+    build:
+      context: .
+      dockerfile: Dockerfile.bpo-updater-testing-data
+    volumes:
+      - .:/code/bpo-updater-testing-data
+    depends_on:
+      - elasticsearch
+
+  # Custom instance of fedmsg to be accessible by other containers
   fedmsg-relay:
     build:
       context: .
       dockerfile: Dockerfile.fedmsg-relay
     volumes:
-      - .:/code
-      - ./config/fedmsg.d:/etc/fedmsg.d
+      - .:/code/fedmsg-relay
+      - ./config/dev/fedmsg.d:/etc/fedmsg.d
+
+  # Emits testing fedmsg messages mainly to test the fedmsg updater
   fedmsg-emitter:
     build:
       context: .
@@ -45,7 +71,5 @@ services:
     depends_on:
       - fedmsg-relay
     volumes:
-      - .:/code
-      - ./config/fedmsg.d:/etc/fedmsg.d
-    
-    
+      - .:/code/fedmsg-emitter
+      - ./config/dev/fedmsg.d:/etc/fedmsg.d

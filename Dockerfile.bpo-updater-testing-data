@@ -1,0 +1,9 @@
+FROM fedora:24
+MAINTAINER Adam Samalik <asamalik@redhat.com>
+ENV LANG=en_US.utf8
+
+RUN dnf install -y python3-elasticsearch
+
+ADD bpo-updater-testing-data /code
+WORKDIR /code
+CMD /bin/sh run.sh

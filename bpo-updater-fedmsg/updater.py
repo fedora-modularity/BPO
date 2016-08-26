@@ -7,7 +7,7 @@ import json
 fedmsg_config = fedmsg.config.load_config()
 es = Elasticsearch(hosts=[{'host': 'elasticsearch', 'port': 9200}])
 
-config_topic = "org.fedoraproject.dev.logger.module.state.change"
+config_topic = "org.fedoraproject.dev.rida.module.state.change"
 config_pdc_url = "http://dev.fed-mod.org:8080"
 
 def get_dependencies(name, version, release):
@@ -22,13 +22,19 @@ def get_dependencies(name, version, release):
     build_deps = response_json["results"][0]["build_deps"]
 
     return dict(runtime_deps=runtime_deps, build_deps=build_deps)
-    
+
+
+def log(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
 
 def module_state_change(msg):
+    print ("{}    Module state change: {}".format(datetime.now(),topic))
     name = msg.get("name")
     version = msg.get("version")
     release = msg.get("release")
-    state = msg.get("state")
+    state = msg.get("state_name")
+    print ("Name: {}\nVersion: {}\nRelease: {}\nState: {}".format(name, version, release, state))
 
     if not name or not version or not release or not state:
         return
@@ -47,6 +53,7 @@ def module_state_change(msg):
 
     try:
         es.create(index="modularity", doc_type="module", id=id, body=document)
+        log("es created")
     except:
         document = {
             "doc": {
@@ -57,9 +64,13 @@ def module_state_change(msg):
             }
         }
         es.update(index="modularity", doc_type="module", id=id, body=document)
+        log("es updated")
 
-    
+
 
 for name, endpoint, topic, msg in fedmsg.tail_messages(**fedmsg_config):
+    log("\n\n==============================================\n")
+    log("{}    Fedmsg received: {}\n\n{}".format(datetime.now(),topic,msg))
+
     if config_topic == topic:
         module_state_change(msg["msg"])

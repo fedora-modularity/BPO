@@ -1,0 +1,37 @@
+version: '2'
+services:
+
+  # Web UI
+  bpo-web-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.bpo-web-ui
+    ports:
+      - "8010:5000"
+    depends_on:
+      - elasticsearch
+
+  # Elasticsearch - as a db/cache and a search engine
+  elasticsearch:
+    image: elasticsearch
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
+  # Service listening to fedmsg and updating Elasticsearch
+  bpo-updater-fedmsg:
+    build:
+      context: .
+      dockerfile: Dockerfile.bpo-updater-fedmsg
+    volumes:
+      - ./config/stg/fedmsg.d/endpoints.py:/etc/fedmsg.d/endpoints.py
+      - ./config/stg/fedmsg.d/ssl.py:/etc/fedmsg.d/ssl.py
+    depends_on:
+      - elasticsearch
+
+  # Service that creates data mappings in Elasticsearch and dies. Poor service!
+  bpo-updater-mappings:
+    build:
+      context: .
+      dockerfile: Dockerfile.bpo-updater-mappings
+    depends_on:
+      - elasticsearch
