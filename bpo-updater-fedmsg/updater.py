@@ -109,14 +109,20 @@ def action_module_state_change(msg):
 
     # Are the module metadata in PDC already? I want them now!
     # I will also do this just once, since module can enter this state only once.
+    pdc_data = None
     if state == "wait":
         log("Querying PDC...")
-        pdc_data = query_pdc_metadata(name, version, release)
-        log("Got the following data:\n{}".format(pdc_data))
+        
+        try:
+            pdc_data = query_pdc_metadata(name, version, release)
+        except PDCResponseException:
+            log("ERROR: PDC querry failed. Skipping.")
+        else:
+            log("Got the following data:\n{}".format(pdc_data))
 
-        document["dependencies"] = pdc_data["runtime_deps"]
-        document["dependencies-build"] = pdc_data["build_deps"]
-        document["koji_tag"] = pdc_data["koji_tag"]
+            document["dependencies"] = pdc_data["runtime_deps"]
+            document["dependencies-build"] = pdc_data["build_deps"]
+            document["koji_tag"] = pdc_data["koji_tag"]
 
     # Push the data into Elasticsearch.
     try:
@@ -136,7 +142,7 @@ def action_module_state_change(msg):
         }
 
         # And if I have the data from PDC, include them as well.
-        if state == "wait":
+        if pdc_data:
             document["dependencies"] = pdc_data["runtime_deps"]
             document["dependencies-build"] = pdc_data["build_deps"]
             document["koji_tag"] = pdc_data["koji_tag"]
