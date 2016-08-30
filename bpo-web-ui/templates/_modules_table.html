@@ -13,6 +13,7 @@
   <tbody>
   {% for document in modules %}
     <tr>
+      {% if document.found %}
       <td>
         <strong>
           <a href="{{url_for("module_overview", name=document._source.name, version=document._source.version, release=document._source.release) }}">
@@ -22,6 +23,11 @@
       </td>
       <td>{{ build_state_simple(document._source["build-state"]) }}</td>
       <td>{{ document._source.summary }}</td>
+      {% else %}
+      <td><strong>{{ document._id}}</strong> <span class="text-muted">(module not found in the BPO database)</span></td>
+      <td> - </td>
+      <td> - </td>
+      {% endif %}
     </tr>
   {% endfor %}
   </tbody>

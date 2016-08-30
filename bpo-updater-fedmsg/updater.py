@@ -10,6 +10,7 @@ from datetime import datetime
 # Configuration
 # This should be in a config file, really
 config_topic_module_state_change = "org.fedoraproject.dev.rida.module.state.change"
+config_topic_koji_tag = "org.fedoraproject.stg.buildsys.tag"
 config_pdc_url = "http://dev.fed-mod.org:8080"
 config_es_url = "elasticsearch"
 config_es_port = 9200
@@ -64,13 +65,11 @@ def query_pdc_metadata(name, version, release):
     return dict(runtime_deps=runtime_deps, build_deps=build_deps, koji_tag=koji_tag)
 
 
-def action_module_state_change(msg):
+def action_module_state_change(msg, es):
     """
     Reaction to a "module state change" fedmsg message.
     Creates empty/updates existing module document in Elasticsearch.
     """
-
-    log ("Module state change: {}\n".format(topic))
 
     name = msg.get("name")
     version = msg.get("version")
@@ -112,7 +111,7 @@ def action_module_state_change(msg):
     pdc_data = None
     if state == "wait":
         log("Querying PDC...")
-        
+
         try:
             pdc_data = query_pdc_metadata(name, version, release)
         except PDCResponseException:
@@ -133,22 +132,26 @@ def action_module_state_change(msg):
         # Ha! It already exists. So I'll just update it.
         # I want to push just the changes, nothing else.
         document = {
-            "doc": {
-                "name": name,
-                "version": version,
-                "release": release,
-                "build-state": state,
-            }
+            "name": name,
+            "version": version,
+            "release": release,
+            "build-state": state,
         }
 
         # And if I have the data from PDC, include them as well.
+        log("Update data 1:\n{}".format(pdc_data))
         if pdc_data:
+            log("Update data 2:\n{}".format(pdc_data))
             document["dependencies"] = pdc_data["runtime_deps"]
             document["dependencies-build"] = pdc_data["build_deps"]
             document["koji_tag"] = pdc_data["koji_tag"]
+            log("Document:\n{}".format(document))
+
+        # The document needs to be in "doc" for some reason.
+        update_document = {"doc": document}
 
         # And finally, update!
-        es.update(index="modularity", doc_type="module", id=id, body=document)
+        es.update(index="modularity", doc_type="module", id=id, body=update_document)
         log("Elasticsearch: updated")
 
     log("Module state change action SUCCEEDED.\n")
@@ -168,7 +171,8 @@ def main():
         log("Message:\n{}\n".format(msg))
 
         if topic == config_topic_module_state_change:
-            action_module_state_change(msg["msg"])
+            log ("Module state change: {}\n".format(topic))
+            action_module_state_change(msg["msg"], es)
 
 
 
