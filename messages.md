@@ -195,7 +195,7 @@ be emitted.
 
 
 
-### org.fedoraproject.stg.buildsys.tag",
+### org.fedoraproject.stg.buildsys.tag
 
 ```
 "msg": {
