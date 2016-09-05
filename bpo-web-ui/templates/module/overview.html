@@ -14,13 +14,15 @@
 <dl class="dl-horizontal">
   <dt>Summary:</dt>
   <dd>{{ module._source.summary }}</dd>
+
   <dt>Build State:</dt>
   <dd>{{ module._source["build-state"] }}</dd>
+
+  {% if module._source.koji_tag %}
+  <dt>Koji Tag:</dt>
+  <dd><a href="http://koji.stg.fedoraproject.org/koji/buildtargetinfo?name={{ module._source.koji_tag }}">{{ module._source.koji_tag }}</a></dd
+  {% endif %}
 </dl>
-
-<h3> Debug: </h3>
-
-{{module}}
 
 
 {% endblock %}
