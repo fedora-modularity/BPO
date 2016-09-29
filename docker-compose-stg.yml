@@ -3,7 +3,7 @@ services:
 
   # Web UI
   bpo-web-ui:
-    image:asamalik/bpo-web-ui
+    image: asamalik/bpo-web-ui
     ports:
       - "8010:5000"
     depends_on:
