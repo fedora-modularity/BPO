@@ -3,9 +3,7 @@ services:
 
   # Web UI
   bpo-web-ui:
-    build:
-      context: .
-      dockerfile: Dockerfile.bpo-web-ui
+    image:asamalik/bpo-web-ui
     ports:
       - "8010:5000"
     depends_on:
@@ -19,9 +17,7 @@ services:
 
   # Service listening to fedmsg and updating Elasticsearch
   bpo-updater-fedmsg:
-    build:
-      context: .
-      dockerfile: Dockerfile.bpo-updater-fedmsg
+    image: asamalik/bpo-updater-fedmsg
     volumes:
       - ./config/stg/fedmsg.d/endpoints.py:/etc/fedmsg.d/endpoints.py
       - ./config/stg/fedmsg.d/ssl.py:/etc/fedmsg.d/ssl.py
@@ -30,8 +26,6 @@ services:
 
   # Service that creates data mappings in Elasticsearch and dies. Poor service!
   bpo-updater-mappings:
-    build:
-      context: .
-      dockerfile: Dockerfile.bpo-updater-mappings
+    image: asamalik/bpo-updater-mappings
     depends_on:
       - elasticsearch
