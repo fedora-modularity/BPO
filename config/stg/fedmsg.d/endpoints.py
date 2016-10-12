@@ -25,6 +25,7 @@ config = dict(
         # These are here so your local box can listen to the upstream
         # infrastructure's bus.  Cool, right?  :)
         "fedmod": [
+            "tcp://stg.fedoraproject.org:9940",
             "tcp://modularity.fedorainfracloud.org:4001",
         ],
         #"localhost": [
